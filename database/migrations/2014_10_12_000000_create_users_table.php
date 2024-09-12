@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('username')->unique();
             $table->string('image')->nullable();
-            $table->enum('status', ['active', 'archived']);
+            $table->boolean('status');
             $table->string('country')->nullable();
-            $table->string('city')->nullable(); 
+            $table->string('city')->nullable();
             $table->string('street')->nullable();
             $table->string('phone')->unique();
             $table->timestamp('email_verified_at')->nullable();
