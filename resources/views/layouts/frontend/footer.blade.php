@@ -62,8 +62,13 @@
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             Vivamus sed porta dui. Class aptent taciti sociosqu
                         </p>
-                        <form>
-                            <input class="form-control" type="email" placeholder="Your email here" />
+                        <form action="{{ route('front.news.subscribe.store') }}" method="POST">
+                            @csrf
+                            <input class="form-control" type="email" name="email" placeholder="Your email here"
+                                value="{{ old('email') }}" />
+                            @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             <button class="btn">Submit</button>
                         </form>
                     </div>
