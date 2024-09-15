@@ -18,6 +18,7 @@ return new class extends Migration
             $table->longText('desc');
             $table->boolean('comment_able')->default(true); // If true, users are allowed to add comments. If false, comments are not allowed.
             $table->boolean('status')->default(true);
+            $table->bigInteger('number_of_views')->default(0);
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('category_id')->references('id')->on('categories')->cascadeOnDelete();
             $table->timestamps();

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\FrontEnd\HomeController;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('front.index');
+
+Auth::routes();

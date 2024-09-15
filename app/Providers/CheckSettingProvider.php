@@ -14,21 +14,21 @@ class CheckSettingProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Setting::firstOr(function () {
-            return Setting::create([
-                'site_name' => 'News Website',
-                'email' => 'info@example.com',
-                'favicon' => 'default_favicon.ico',
-                'logo' => 'default_logo.png',
-                'facebook' => 'https://facebook.com/default',
-                'twitter' => 'https://twitter.com/default',
-                'instagram' => 'https://instagram.com/default',
-                'youtube' => 'https://youtube.com/default',
-                'phone' => '01124684262',
-                'country' => 'Egypt',
-                'city' => 'Cairo',
-                'street' => 'Default Street',
-            ]);
-        });
+        $settings = Setting::firstOrCreate(['site_name' => 'News Website'], [
+            'site_name' => 'News Website',
+            'email' => 'youssefelsrogi@gmail.com',
+            'favicon' => 'default_favicon.ico',
+            'logo' => 'logo.png',
+            'facebook' => 'https://facebook.com/',
+            'twitter' => 'https://twitter.com/',
+            'instagram' => 'https://instagram.com/',
+            'youtube' => 'https://youtube.com/',
+            'phone' => '01124684262',
+            'country' => 'Egypt',
+            'city' => 'Alex',
+            'street' => 'Elsarawy',
+        ]);
+
+        view()->share('settings', $settings);
     }
 }

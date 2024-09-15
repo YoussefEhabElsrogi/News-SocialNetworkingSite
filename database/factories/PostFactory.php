@@ -23,6 +23,7 @@ class PostFactory extends Factory
             'desc' => $this->faker->paragraph(6),
             'comment_able' => $this->faker->boolean,
             'status' => $this->faker->boolean,
+            'number_of_views' => rand(0, 300),
             'user_id' => User::inRandomOrder()->first()->id,
             'category_id' => Category::inRandomOrder()->first()->id,
             'created_at' => now(),
