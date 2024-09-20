@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -59,4 +60,11 @@ class Post extends Model
         return $this->hasMany(Image::class);
     }
     ################################### END RELATIONS
+
+    ################################### START SCOPE
+    public function scopeActive(Builder $query)
+    {
+        $query->where('status', 1);
+    }
+    ################################### END SCOPE
 }

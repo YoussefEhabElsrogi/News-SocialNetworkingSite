@@ -2,6 +2,10 @@
 
 @section('title', 'Home')
 
+@section('breadcrumb')
+    @parent
+@endsection
+
 @section('content')
     {{-- Return LatestThree Post --}}
     @php
@@ -19,7 +23,7 @@
                                 <div class="tn-img">
                                     <img src="{{ $post->images->first()->path }}" />
                                     <div class="tn-title">
-                                        <a href="">{{ $post->title }}</a>
+                                        <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +40,7 @@
                                 <div class="tn-img">
                                     <img src="{{ $post->images->first()->path }}" />
                                     <div class="tn-title">
-                                        <a href="">{{ $post->title }}</a>
+                                        <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +65,7 @@
                                     <div class="cn-img">
                                         <img src="{{ $post->images->first()->path }}" />
                                         <div class="cn-title">
-                                            <a href="">{{ $post->title }}</a>
+                                            <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +101,7 @@
                                         <img src="{{ $post->images->first()->path }}" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="">{{ $post->title }}</a>
+                                        <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
                                 </div>
                             @empty
@@ -118,7 +122,7 @@
                                         <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="">{{ $post->title }}</a>
+                                        <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
                                 </div>
                             @empty
@@ -159,7 +163,7 @@
                                         <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="">{{ $post->title }}</a>
+                                        <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
                                 </div>
                             @empty
@@ -181,7 +185,9 @@
                                         <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="">{{ $post->title }} ({{ $post->number_of_views }}) Views</a>
+                                        <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}
+                                            ({{ $post->number_of_views }})
+                                            Views</a>
                                     </div>
                                 </div>
                             @empty
@@ -214,7 +220,7 @@
                                 <div class="mn-img">
                                     <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" />
                                     <div class="mn-title">
-                                        <a href="#">{{ $post->title }}</a>
+                                        <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +243,8 @@
                         <h2>Read More</h2>
                         <ul>
                             @foreach ($read_more_posts as $post)
-                                <li><a href="">{{ $post->title }}</a></li>
+                                <li><a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
+                                </li>
                             @endforeach
                         </ul>
                     </div>

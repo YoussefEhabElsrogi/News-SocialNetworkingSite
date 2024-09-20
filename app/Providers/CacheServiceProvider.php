@@ -21,12 +21,26 @@ class CacheServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Cache "read more" posts
         $read_more_posts = Cache::remember('read_more_posts', 3600, function () {
-            return Post::select('id', 'title')->latest()->take(10)->get();
+            return Post::select('id', 'title', 'slug')->latest()->take(10)->get();
         });
 
-        $read_more_posts = Cache::get('read_more_posts');
+        // Cache "latest" posts
+        $latestPosts = Cache::remember('latestPosts', 3600, function () {
+            return Post::select('id', 'title', 'slug')->latest()->take(5)->get();
+        });
 
-        view()->share('read_more_posts',  $read_more_posts);
+        // Cache "popular" posts
+        $popularPosts = Cache::remember('popularPosts', 3600, function () {
+            return Post::withCount('comments')->orderBy('comments_count', 'desc')->take(5)->get();
+        });
+
+        // Share the cached data to all views
+        view()->share([
+            'read_more_posts' => $read_more_posts,
+            'latestPosts' => $latestPosts,
+            'popularPosts' => $popularPosts,
+        ]);
     }
 }

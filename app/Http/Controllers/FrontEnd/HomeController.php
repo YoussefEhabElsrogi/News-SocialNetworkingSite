@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -12,16 +12,16 @@ class HomeController extends Controller
     public function index()
     {
         // Fetch the latest 9 posts with their images
-        $posts = Post::with('images')->latest()->paginate(9);
+        $posts = Post::active()->with('images')->latest()->paginate(9);
 
         // Fetch the top 3 posts with the highest number of views
-        $greatestPostsViews = Post::orderBy('number_of_views', 'desc')->take(3)->get();
+        $greatestPostsViews = Post::active()->orderBy('number_of_views', 'desc')->take(3)->get();
 
         // Fetch the 3 oldest posts
-        $oldestPosts = Post::oldest()->take(3)->get();
+        $oldestPosts = Post::active()->oldest()->take(3)->get();
 
         // Fetch the top 3 popular posts based on comments count
-        $popularPosts = Post::withCount('comments')->orderBy('comments_count', 'desc')->take(3)->get();
+        $popularPosts = Post::active()->withCount('comments')->orderBy('comments_count', 'desc')->take(3)->get();
 
         // Fetch all categories and map over them to get first 2 posts for each category
         $categories = Category::all(); // Get all categories

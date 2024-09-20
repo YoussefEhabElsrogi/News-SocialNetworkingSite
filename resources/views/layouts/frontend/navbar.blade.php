@@ -38,10 +38,16 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-4">
-                <div class="b-search">
-                    <input type="text" placeholder="Search" />
-                    <button><i class="fa fa-search"></i></button>
-                </div>
+                <form action="{{ route('front.search') }}" method="POST">
+                    @csrf
+                    <div class="b-search">
+                        <input type="text" name="search" placeholder="Search" />
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                    @error('search')
+                        <div style="color: red;margin-top:10px">{{ $message }}</div>
+                    @enderror
+                </form>
             </div>
         </div>
     </div>
@@ -59,17 +65,20 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="{{ route('front.index') }}" class="nav-item nav-link active">Home</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Sub Item 1</a>
-                            <a href="#" class="dropdown-item">Sub Item 2</a>
+                            {{-- Categories --}}
+                            @foreach ($categories as $category)
+                                <a href="{{ route('front.category.posts', $category->slug) }}"
+                                    title="{{ $category->name }}" class="dropdown-item">{{ $category->name }}</a>
+                            @endforeach
                         </div>
                     </div>
                     <a href="single-page.html" class="nav-item nav-link">Single Page</a>
                     <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    <a href="{{ route('front.contact.create') }}" class="nav-item nav-link">Contact Us</a>
                 </div>
                 <div class="social ml-auto">
                     <a href="{{ $settings->twitter }}" target="_blank" title="Follow us on Twitter">
@@ -82,7 +91,7 @@
                         <i class="fab fa-instagram"></i>
                     </a>
                     <a href="{{ $settings->youtube }}" target="_blank" title="Subscribe to our YouTube channel">
-                        <i class="fab fa-youtube"></i> 
+                        <i class="fab fa-youtube"></i>
                     </a>
                 </div>
 
