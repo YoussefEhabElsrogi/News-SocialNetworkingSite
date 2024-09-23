@@ -48,6 +48,4 @@ Route::group(['as' => 'front.'], function () {
     Route::match(['get', 'post'], 'search', SearchController::class)->name('search');
 });
 
-
-
 Auth::routes();

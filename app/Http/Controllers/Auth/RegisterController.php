@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -28,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -51,22 +56,70 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif|max:2048'],
+            'country' => ['nullable', 'string', 'max:255'],
+            'city' => ['nullable', 'string', 'max:255'],
+            'street' => ['nullable', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:20', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'username' => $data['username'],
+            'country' => $data['country'] ?? null,
+            'city' => $data['city'] ?? null,
+            'street' => $data['street'] ?? null,
+            'phone' => $data['phone'],
+            'password' => $data['password'],
         ]);
+
+        if ($data['image']) {
+            $file = $data['image'];
+            $fileName = Str::slug($user->username) . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+            $path = $file->storeAs('uploads/users', $fileName, ['disk' => 'uploads']);
+
+            $user->update(
+                [
+                    'image' => $path,
+                ]
+            );
+        }
+
+        return $user;
+    }
+
+    public function register(Request $request)
+    {
+        // return $request;
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson() ? new JsonResponse([], 201) : redirect($this->redirectPath());
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        setFlashMessage('success', 'You Are Registered Successfully');
+        return to_route('front.index');
     }
 }

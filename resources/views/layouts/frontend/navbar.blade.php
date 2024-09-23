@@ -11,9 +11,19 @@
             <div class="col-md-6">
                 <div class="tb-menu">
                     <a href="">About</a>
-                    <a href="">Privacy</a>
-                    <a href="">Terms</a>
-                    <a href="">Contact</a>
+                    @guest
+                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}">Login</a>
+                    @endguest
+
+                    @auth
+                        <a href="javascript:void(0)"
+                            onclick="event.preventDefault(); if(confirm('Do You Want To Logout?')) document.getElementById('formLogout').submit();">Logout</a>
+                    @endauth
+
+                    <form id="formLogout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>
