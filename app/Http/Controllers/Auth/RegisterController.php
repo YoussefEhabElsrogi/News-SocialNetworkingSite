@@ -33,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -85,7 +85,7 @@ class RegisterController extends Controller
             'password' => $data['password'],
         ]);
 
-        if ($data['image']) {
+        if (isset($data['image']) && $data['image']) {
             $file = $data['image'];
             $fileName = Str::slug($user->username) . '-' . time() . '.' . $file->getClientOriginalExtension();
 
@@ -101,9 +101,9 @@ class RegisterController extends Controller
         return $user;
     }
 
+
     public function register(Request $request)
     {
-        // return $request;
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));

@@ -19,10 +19,13 @@ class PostController extends Controller
 
         ])->whereSlug($slug)->first();
 
+
         if (!$singlePost) {
             setFlashMessage('error', 'Post Not Found');
             return redirect()->back();
         }
+
+        $singlePost->increment('number_of_views');
 
         $category = $singlePost->category;
         $postId  = $singlePost->id;

@@ -1,6 +1,6 @@
 @extends('layouts.frontend.app')
 
-@section('title', 'Search')
+@section('title', 'Search Posts')
 
 @section('breadcrumb')
     @parent

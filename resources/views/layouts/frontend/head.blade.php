@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>News-SocialNetWorking - @yield('title')</title>
+    <title>{{ config('app.name') }} | @yield('title')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Bootstrap News Template - Free HTML Templates" name="keywords" />
     <meta content="Bootstrap News Template - Free HTML Templates" name="description" />
@@ -22,6 +22,12 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/frontend/css/') }}/style.css" rel="stylesheet" />
+
+    {{-- File Input --}}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/file-input/css/fileinput.min.css') }}">
+
+    {{-- Summernote --}}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/summernote-bs4.min.css') }}">
 </head>
 
 <body>

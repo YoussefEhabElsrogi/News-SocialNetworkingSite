@@ -1,6 +1,8 @@
 @extends('layouts.frontend.app')
 
-@section('title', 'Category Posts')
+@section('title')
+    Category {{ $category->name }}
+@endsection
 
 @section('breadcrumb')
     @parent

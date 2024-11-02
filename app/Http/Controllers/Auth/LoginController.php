@@ -44,4 +44,9 @@ class LoginController extends Controller
         setFlashMessage('success', 'You Logged Out Successfully');
         return to_route('front.index');
     }
+    protected function authenticated(Request $request, $user)
+    {
+        setFlashMessage('success', 'You Logged In Successfully');
+        return to_route('front.index');
+    }
 }

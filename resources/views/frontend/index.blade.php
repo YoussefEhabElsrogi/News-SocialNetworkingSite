@@ -21,7 +21,7 @@
                         @foreach ($latestThree as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img src="{{ $post->images->first()->path }}" />
+                                    <img width="510px" height="383px" src="{{ asset($post->images->first()->path) }}" />
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
@@ -38,7 +38,7 @@
                         @foreach ($fourPost as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img src="{{ $post->images->first()->path }}" />
+                                    <img width="280px" height="195px" src="{{ asset($post->images->first()->path) }}" />
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
@@ -63,7 +63,7 @@
                             @foreach ($category->posts as $post)
                                 <div class="col-md-6">
                                     <div class="cn-img">
-                                        <img src="{{ $post->images->first()->path }}" />
+                                        <img src="{{ asset($post->images->first()->path) }}" />
                                         <div class="cn-title">
                                             <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                         </div>
@@ -98,7 +98,7 @@
                             @forelse ($oldestPosts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $post->images->first()->path }}" />
+                                        <img src="{{ asset($post->images->first()->path) }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
@@ -119,7 +119,7 @@
                             @forelse ($popularPosts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" />
+                                        <img src="{{ asset($post->images->first()->path) }}" alt="{{ $post->title }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
@@ -160,7 +160,7 @@
                             @forelse ($latestThree as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" />
+                                        <img src="{{ asset($post->images->first()->path) }}" alt="{{ $post->title }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
@@ -182,7 +182,7 @@
                             @forelse ($greatestPostsViews as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" />
+                                        <img src="{{ asset($post->images->first()->path) }}" alt="{{ $post->title }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}
@@ -218,7 +218,8 @@
                         @forelse ($posts as $post)
                             <div class="col-md-4">
                                 <div class="mn-img">
-                                    <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" />
+                                    <img width="260px" height="150px" src="{{ asset($post->images->first()->path) }}"
+                                        alt="{{ $post->title }}" />
                                     <div class="mn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>

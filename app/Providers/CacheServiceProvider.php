@@ -36,7 +36,7 @@ class CacheServiceProvider extends ServiceProvider
             return Post::withCount('comments')->orderBy('comments_count', 'desc')->take(5)->get();
         });
 
-        // Share the cached data to all views
+        // Share the cached data to all views 
         view()->share([
             'read_more_posts' => $read_more_posts,
             'latestPosts' => $latestPosts,

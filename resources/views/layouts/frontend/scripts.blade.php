@@ -9,6 +9,16 @@
 
 <!-- Template Javascript -->
 <script src="{{ asset('assets/frontend/js/') }}/main.js"></script>
+
+{{-- File Input --}}
+<script src="{{ asset('assets/vendor/file-input/js/fileinput.min.js') }}"></script>
+
+{{-- Font Awesome --}}
+<script src="{{ asset('assets/vendor/file-input/themes/fa5/theme.min.js') }}"></script>
+
+{{-- Summernote --}}
+<script src="{{ asset('assets/vendor/summernote/summernote-bs4.min.js') }}"></script>
+
 @stack('js')
 </body>
 

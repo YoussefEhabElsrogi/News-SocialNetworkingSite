@@ -86,9 +86,10 @@
                             @endforeach
                         </div>
                     </div>
-                    <a href="single-page.html" class="nav-item nav-link">Single Page</a>
-                    <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
                     <a href="{{ route('front.contact.create') }}" class="nav-item nav-link">Contact Us</a>
+                    @auth
+                        <a href="{{ route('front.dashboard.profile') }}" class="nav-item nav-link">Dashboard</a>
+                    @endauth
                 </div>
                 <div class="social ml-auto">
                     <a href="{{ $settings->twitter }}" target="_blank" title="Follow us on Twitter">
