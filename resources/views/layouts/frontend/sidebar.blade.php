@@ -4,11 +4,11 @@
         data-section="profile">
         <i class="fas fa-user"></i> Profile
     </a>
-    {{-- <a href="{{ route('front.dashboard.notifications') }}"
-        class="list-group-item list-group-item-action menu-item {{ request()->routeIs('front.dashboard.notifications') ? 'active' : '' }}"
+    <a href="{{ route('front.dashboard.notifications.index') }}"
+        class="list-group-item list-group-item-action menu-item {{ request()->routeIs('front.dashboard.notifications.index') ? 'active' : '' }}"
         data-section="notifications">
         <i class="fas fa-bell"></i> Notifications
-    </a> --}}
+    </a>
     <a href="{{ route('front.dashboard.setting.index') }}"
         class="list-group-item list-group-item-action menu-item {{ request()->routeIs('front.dashboard.setting.index') ? 'active' : '' }}"
         data-section="settings">

@@ -13,6 +13,15 @@ a {
     transition: 0.5s;
 }
 
+    .notify {
+        padding: 10px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    .notify:hover{
+        transform: translateY(-10px);
+    }
+
 a:hover,
 a:active,
 a:focus {

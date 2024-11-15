@@ -19,6 +19,8 @@
 {{-- Summernote --}}
 <script src="{{ asset('assets/vendor/summernote/summernote-bs4.min.js') }}"></script>
 
+{{-- <script src="{{ asset('build/assets/app-ed8d0f89.js') }}"></script> --}}
+
 @stack('js')
 </body>
 

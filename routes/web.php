@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\Dashboard\NotificationController;
 use App\Http\Controllers\Frontend\Dashboard\ProfileController;
 use App\Http\Controllers\Frontend\Dashboard\SettingController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -52,6 +53,7 @@ Route::group(['as' => 'front.'], function () {
 
     // Dashboard Routes
     Route::prefix('user')->name('dashboard.')->middleware(['auth', 'verified'])->group(function () {
+        // Profile Routes
         Route::controller(ProfileController::class)->group(function () {
             Route::get('profile', 'index')->name('profile');
             Route::prefix('post')->name('post.')->group(function () {
@@ -60,7 +62,7 @@ Route::group(['as' => 'front.'], function () {
                 Route::get('get-comments/{slug}', action: 'getComments')->name('get-comments');
                 Route::get('edit/{slug}', 'showEditForm')->name('edit');
                 Route::put('update', 'updatePost')->name('update');
-                Route::post('image/delete/{id}','deletePostImage')->name('image.delete');
+                Route::post('image/delete/{id}', 'deletePostImage')->name('image.delete');
             });
         });
         // Settings Routes
@@ -68,6 +70,13 @@ Route::group(['as' => 'front.'], function () {
             Route::get('', 'index')->name('index');
             Route::put('/update', 'update')->name('update');
             Route::post('/change-password', 'changePassword')->name('change-password');
+        });
+        // Notification Routes
+        Route::prefix('notification')->controller(NotificationController::class)->name('notifications.')->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::post('/read-all', 'readAll')->name('readAll');
+            Route::delete('/delete', 'delete')->name('delete');
+            Route::delete('/delete-all', 'deleteAll')->name('deleteAll');
         });
     });
 });

@@ -230,7 +230,7 @@
                         $.each(response.data, function(key, comment) {
                             commentSection.append(`
                         <div class="comment">
-                            <img src="${comment.user.image}" alt="User Image" class="comment-img" />
+                            <img src="{{ asset('') }}${comment.user.image}" alt="${comment.user.name || 'User'}'s image" class="comment-img" />
                             <div class="comment-content">
                                 <span class="username">${comment.user.name}</span>
                                 <p class="comment-text">${comment.comment}</p>

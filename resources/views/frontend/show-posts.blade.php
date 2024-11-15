@@ -43,7 +43,7 @@
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
-                    <div class="sn-content">{!! $singlePost->desc !!}</div>
+                    <div class="sn-content text-break">{!! $singlePost->desc !!}</div>
 
                     <div style="display: none;font-size:20px" id="errorMessage" class="alert alert-danger">
                         {{-- Display Error --}}
@@ -56,7 +56,7 @@
                             <form method="POST" action="" id="commentForm">
                                 <div class="comment-input">
                                     @csrf
-                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="user_id" value="{{ $user->id }}">
                                     <input type="hidden" name="post_id" value="{{ $singlePost->id }}">
                                     <input id="commentInput" type="text" name="comment" placeholder="Add a comment..." />
                                     <button type="submit">Comment</button>
@@ -67,9 +67,11 @@
                             <!-- Display Comments -->
                             <div class="comments">
                                 @foreach ($singlePost->comments as $comment)
-                                    <div class="comment">
-                                        <img src="{{ $comment->user->image }}" alt="{{ $comment->user->name }}'s image"
-                                            class="comment-img" />
+                                    <div class="comment" style="display: flex;justify-content: center;align-items: center">
+                                        <div class="image">
+                                            <img src="{{ asset($comment->user->image) }}"
+                                                alt="No image" class="comment-img" />
+                                        </div>
                                         <div class="comment-content">
                                             <span class="username">{{ $comment->user->name }}</span>
                                             <p class="comment-text">{{ $comment->comment }}</p>
@@ -84,9 +86,9 @@
                             @endif
                         </div>
                     @else
-                        <div class="alert alert-info text-center"
-                            style="margin-top: 20px; padding: 15px; border-radius: 45px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-                            <h3 style="font-size: 1.5rem; font-weight: bold; color: red;text-align:center">
+                        <div
+                            class="alert alert-info text-center d-flex justify-content-center align-items-center mt-4 p-3 rounded-5 shadow-sm">
+                            <h3 class="fw-bold" style="color: red;">
                                 Comments are disabled for this post 😔
                             </h3>
                         </div>
@@ -229,7 +231,7 @@
                         $.each(data, function(key, comment) {
                             $('.comments').append(
                                 `<div class="comment">
-                                <img src="${comment.user.image}" alt="${comment.user.name}'s image" class="comment-img" />
+                                <img src="{{ asset('') }}${comment.user.image}" alt="${comment.user.name}'s image" class="comment-img" />
                                 <div class="comment-content">
                                     <span class="username">${comment.user.name}</span>
                                     <p class="comment-text">${comment.comment}</p>
@@ -266,14 +268,14 @@
 
                     if (response.comment) {
                         $('.comments').prepend(`
-                    <div class="comment">
-                        <img src="${response.comment.user.image}" alt="${response.comment.user.name || 'User'}'s image" class="comment-img" />
-                        <div class="comment-content">
-                            <span class="username">${response.comment.user.name || 'User Name'}</span>
-                            <p class="comment-text">${response.comment.comment}</p>
+                        <div class="comment">
+                            <img src="{{ asset('') }}${response.comment.user.image}" alt="${response.comment.user.name || 'User'}'s image" class="comment-img" />
+                            <div class="comment-content">
+                                <span class="username">${response.comment.user.name || 'User Name'}</span>
+                                <p class="comment-text">${response.comment.comment}</p>
+                            </div>
                         </div>
-                    </div>
-                `);
+                    `);
                     }
                 },
                 error: function(data) {

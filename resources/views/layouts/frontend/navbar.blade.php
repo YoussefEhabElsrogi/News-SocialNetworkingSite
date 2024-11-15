@@ -92,6 +92,43 @@
                     @endauth
                 </div>
                 <div class="social ml-auto">
+
+                    @auth
+                        <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge badge-danger">
+                                {{ Auth::user()->unreadNotifications->count() }}
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown"
+                            style="width: 300px;">
+                            <h6 class="dropdown-header">Notifications</h6>
+
+                            @forelse (auth()->user()->unreadNotifications as $notification)
+                                <div class="dropdown-item d-flex justify-content-between align-items-center">
+                                    <span>Post Comment : {{ substr($notification->data['post_title'], 0, 9) }}...</span>
+                                    <a href="{{ $notification->data['link'] }}?notify={{ $notification->id }}"><i
+                                            class="fa fa-eye"></i></a>
+                                </div>
+                            @empty
+                                <div class="dropdown-item text-center text-danger notify">No notifications</div>
+                            @endforelse
+
+                            <!-- Mark All as Read Button -->
+                            @if (Auth::user()->unreadNotifications->count() > 0)
+                                <div class="dropdown-item text-center">
+                                    <form action="{{ route('front.dashboard.notifications.readAll') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success">Mark All as Read</button>
+                                    </form>
+                                </div>
+                            @endif
+                        </div>
+                    @endauth
+
+                    <!-- Notification Dropdown -->
+
                     <a href="{{ $settings->twitter }}" target="_blank" title="Follow us on Twitter">
                         <i class="fab fa-twitter"></i>
                     </a>

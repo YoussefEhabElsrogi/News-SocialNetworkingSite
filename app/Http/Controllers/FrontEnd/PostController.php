@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\StoreCommentEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
+use App\Notifications\NewCommentNotify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -31,7 +36,11 @@ class PostController extends Controller
         $postId  = $singlePost->id;
         $postsRelated = $category->posts()->where('id', '!=', $postId)->select('id', 'title', 'slug')->latest()->take(5)->get();
 
-        return view('frontend.show-posts', compact('singlePost', 'postsRelated'));
+        $userId = Auth::user()->id;
+
+        $user = User::findOrFail($userId);
+
+        return view('frontend.show-posts', compact('singlePost', 'postsRelated', 'user'));
     }
     public function getAllComments($slug)
     {
@@ -58,6 +67,11 @@ class PostController extends Controller
         $data['ip_address'] = $request->ip();
 
         $comment = Comment::create($data);
+
+        $post = Post::findOrFail($request->post_id);
+
+        // Send Notification
+        broadcast(new NewCommentNotify($comment, $post));
 
         $comment->load('user');
         $comment->makeHidden(['created_at', 'updated_at']);

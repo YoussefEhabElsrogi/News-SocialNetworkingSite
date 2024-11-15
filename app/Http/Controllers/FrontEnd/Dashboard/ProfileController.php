@@ -117,6 +117,7 @@ class ProfileController extends Controller
         $comments = $post->comments()
             ->select(['id', 'comment', 'post_id', 'user_id', 'status'])
             ->with('user:id,name,image')
+            ->orderBy('id', 'desc')
             ->get();
 
         if ($comments->isEmpty()) {

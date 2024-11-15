@@ -14,6 +14,16 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        User::updateOrCreate(
+            ['email' => 'youssef@gmail.com'],
+            ['name' => 'Youssef Elsrogi', 'username' => 'Youssef@username', 'phone' => '01124684262',  'email' => 'youssef@gmail.com', 'password' => '123123123']
+        );
+
+        User::updateOrCreate(
+            ['email' => 'moamen@gmail.com'],
+            ['name' => 'Moamen Elngar', 'username' => 'Moamen@username',  'phone' => '01124684263', 'email' => 'moamen@gmail.com', 'password' => '123123123']
+        );
+
         User::factory()->count(10)->create();
     }
 }

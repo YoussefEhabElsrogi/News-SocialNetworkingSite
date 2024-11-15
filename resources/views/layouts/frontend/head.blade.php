@@ -28,6 +28,15 @@
 
     {{-- Summernote --}}
     <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/summernote-bs4.min.css') }}">
+
+    {{-- Auth User --}}
+    @auth
+        <script>
+            id = "{{ auth()->user()->id }}";
+        </script>
+    @endauth
+
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
