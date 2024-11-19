@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\Auth\Passwords\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\Auth\Passwords\ResetPasswordController;
+use App\Http\Controllers\Dashboard\Category\CategoryController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,7 +11,6 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
     // Authentication Routes
     Route::controller(LoginController::class)->group(function () {
-
         // Guest Routes
         Route::middleware('guest:admin')->name('login.')->group(function () {
             Route::get('login', 'showLoginForm')->name('show');
@@ -45,5 +45,9 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         // User Routes
         Route::resource('users', UserController::class);
         Route::get('users/status/{id}', [UserController::class, 'changeStatus'])->name('users.changeStatus');
+
+        // Category Routes
+        Route::resource('categories', CategoryController::class);
+        Route::get('categories/status/{id}', [CategoryController::class, 'changeStatus'])->name('categories.changeStatus');
     });
 });

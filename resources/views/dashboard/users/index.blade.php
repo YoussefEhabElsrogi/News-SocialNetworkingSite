@@ -6,7 +6,8 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Users</h1>
-        <p class="mb-4">Manage the users from this page. Use the filters to narrow down the results.</p>
+        <p class="mb-4">You can manage your categories from this page. If you want to add a new category, click <a
+                href="{{ route('dashboard.users.create') }}">here</a>.</p>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -43,7 +44,8 @@
                                                 class="fa fa-trash"></i></a>
                                         <a href="{{ route('dashboard.users.changeStatus', $user->id) }}"><i
                                                 class="fa @if ($user->status == 1) fa-stop @else fa-play @endif"></i></a>
-                                        <a href="{{ route('dashboard.users.show', $user->id) }}"><i class="fa fa-eye"></i></a>
+                                        <a href="{{ route('dashboard.users.show', $user->id) }}"><i
+                                                class="fa fa-eye"></i></a>
                                         <form id="delete_user_{{ $user->id }}"
                                             action="{{ route('dashboard.users.destroy', $user->id) }}" method="POST">
                                             @csrf

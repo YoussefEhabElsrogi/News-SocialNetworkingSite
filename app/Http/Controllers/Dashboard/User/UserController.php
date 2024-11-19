@@ -22,8 +22,7 @@ class UserController extends Controller
 
         $users = User::when($request->keyword, function ($query) use ($request) {
             $query->where(function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%' . $request->keyword . '%')
-                    ->orWhere('email', 'LIKE', '%' . $request->keyword . '%');
+                $query->whereAny(['name', 'email'], 'LIKE', '%' . $request->keyword . '%');
             });
         })
             ->when(!is_null($request->status), function ($query) use ($request) {
@@ -76,25 +75,11 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        // Find the user in the database
         $user = User::findOrFail($id);
 
+        // Show the user's details in the view
         return view('dashboard.users.show', compact('user'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**
