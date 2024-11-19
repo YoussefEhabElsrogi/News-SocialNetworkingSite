@@ -36,11 +36,7 @@ class PostController extends Controller
         $postId  = $singlePost->id;
         $postsRelated = $category->posts()->where('id', '!=', $postId)->select('id', 'title', 'slug')->latest()->take(5)->get();
 
-        $userId = Auth::user()->id;
-
-        $user = User::findOrFail($userId);
-
-        return view('frontend.show-posts', compact('singlePost', 'postsRelated', 'user'));
+        return view('frontend.show-posts', compact('singlePost', 'postsRelated'));
     }
     public function getAllComments($slug)
     {
@@ -64,27 +60,25 @@ class PostController extends Controller
             'post_id' => 'required|exists:posts,id'
         ]);
 
-        $data['ip_address'] = $request->ip();
+        try {
+            $data['ip_address'] = $request->ip();
+            $comment = Comment::create($data);
 
-        $comment = Comment::create($data);
+            $post = Post::findOrFail($data['post_id']);
 
-        $post = Post::findOrFail($request->post_id);
+            $post->user->notify(new NewCommentNotify($comment, $post));
 
-        // Send Notification
-        broadcast(new NewCommentNotify($comment, $post));
+            $comment->load('user');
 
-        $comment->load('user');
-        $comment->makeHidden(['created_at', 'updated_at']);
-        $comment->user->makeHidden(['country', 'city', 'street', 'phone', 'email_verified_at', 'created_at', 'updated_at']);
-
-        if (!$comment) {
-            return response()->json(['data' => 'Operation Failed', 'status' => 403]);
+            return response()->json([
+                'message' => 'Comment created successfully',
+                'comment' => $comment,
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to create comment',
+                'error' => $e->getMessage(),
+            ], 500);
         }
-
-        return response()->json([
-            'message' => 'Comment created successfully',
-            'comment' => $comment,
-            'status' => 201
-        ]);
     }
 }

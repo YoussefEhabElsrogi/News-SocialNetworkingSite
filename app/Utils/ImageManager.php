@@ -30,7 +30,7 @@ class ImageManager
             $image = $request->file('image');
 
             // Delete old image if exists
-            self::deleteImagesInLocal($user->image);
+            self::deleteImageInLocal($user->image);
 
             // Store new image and update database
             $imageName = self::generateImageName($image);
@@ -44,7 +44,7 @@ class ImageManager
         // Delete all images related to a post
         if ($post->images()->count() > 0) {
             foreach ($post->images as $image) {
-                self::deleteImagesInLocal($image->path);
+                self::deleteImageInLocal($image->path);
                 $image->delete(); // Delete image record from database
             }
         }
@@ -61,7 +61,7 @@ class ImageManager
         return $image->storeAs("uploads/$folder", $imageName, ['disk' => 'uploads']);
     }
 
-    public static function deleteImagesInLocal($path)
+    public static function deleteImageInLocal($path)
     {
         // Delete image if it exists in the specified path
         if ($path && File::exists(public_path($path))) {

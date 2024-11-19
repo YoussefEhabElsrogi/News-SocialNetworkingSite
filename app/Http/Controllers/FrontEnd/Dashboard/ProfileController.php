@@ -190,7 +190,7 @@ class ProfileController extends Controller
         }
 
         // Delete image from local
-        ImageManager::deleteImagesInLocal($image->path);
+        ImageManager::deleteImageInLocal($image->path);
 
         $image->delete();
 

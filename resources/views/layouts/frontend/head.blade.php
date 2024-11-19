@@ -32,9 +32,10 @@
     {{-- Auth User --}}
     @auth
         <script>
-            id = "{{ auth()->user()->id }}";
+            userId = "{{ auth()->user()->id }}";
         </script>
     @endauth
+
 
     @vite(['resources/js/app.js'])
 </head>

@@ -17,6 +17,7 @@ class AdminSeeder extends Seeder
             'name' => 'Youssef Elsrogi',
             'username' => 'Youssef@username',
             'email' => 'admin@gmail.com',
+            'remember_token' => '123123123',
             'password' => '123123123'
         ]);
     }

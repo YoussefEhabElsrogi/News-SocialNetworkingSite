@@ -2,15 +2,18 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+
 
 class NewCommentNotify extends Notification
 {
+    use Queueable;
+
     public $comment, $post;
 
     public function __construct(Comment $comment, Post $post)
@@ -28,7 +31,7 @@ class NewCommentNotify extends Notification
     {
         return [
             'userMakeCommentId' => $this->comment->user_id,
-            'userMakeCommentName' => $this->comment->user->name,
+            'userMakeCommentName' => auth()->user()->name,
             'post_title' => $this->post->title,
             'comment' => $this->comment->comment,
             'link' => route('front.post.show', $this->post->slug),
@@ -38,7 +41,7 @@ class NewCommentNotify extends Notification
     {
         return [
             'userMakeCommentId' => $this->comment->user_id,
-            'userMakeCommentName' => $this->comment->user->name,
+            'userMakeCommentName' => auth()->user()->name,
             'post_title' => $this->post->title,
             'comment' => $this->comment->comment,
             'link' => route('front.post.show', $this->post->slug),

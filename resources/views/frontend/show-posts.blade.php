@@ -53,15 +53,17 @@
                     @if ($singlePost->comment_able == true)
                         <div class="comment-section">
                             <!-- Comment Input -->
-                            <form method="POST" action="" id="commentForm">
-                                <div class="comment-input">
-                                    @csrf
-                                    <input type="hidden" name="user_id" value="{{ $user->id }}">
-                                    <input type="hidden" name="post_id" value="{{ $singlePost->id }}">
-                                    <input id="commentInput" type="text" name="comment" placeholder="Add a comment..." />
-                                    <button type="submit">Comment</button>
-                                </div>
-                            </form>
+                            @auth
+                                <form method="POST" action="" id="commentForm">
+                                    <div class="comment-input">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                        <input type="hidden" name="post_id" value="{{ $singlePost->id }}">
+                                        <input id="commentInput" type="text" name="comment" placeholder="Add a comment..." />
+                                        <button type="submit">Comment</button>
+                                    </div>
+                                </form>
+                            @endauth
 
 
                             <!-- Display Comments -->
@@ -69,8 +71,8 @@
                                 @foreach ($singlePost->comments as $comment)
                                     <div class="comment" style="display: flex;justify-content: center;align-items: center">
                                         <div class="image">
-                                            <img src="{{ asset($comment->user->image) }}"
-                                                alt="No image" class="comment-img" />
+                                            <img src="{{ asset($comment->user->image) }}" alt="No image"
+                                                class="comment-img" />
                                         </div>
                                         <div class="comment-content">
                                             <span class="username">{{ $comment->user->name }}</span>
