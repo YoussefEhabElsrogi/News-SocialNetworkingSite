@@ -15,6 +15,19 @@
     <script src="{{ asset('assets/dashboard/js') }}/demo/chart-area-demo.js"></script>
     <script src="{{ asset('assets/dashboard/js') }}/demo/chart-pie-demo.js"></script>
 
+    {{-- File Input --}}
+    <script src="{{ asset('assets/vendor/file-input/js/fileinput.min.js') }}"></script>
+
+    {{-- Font Awesome --}}
+    <script src="{{ asset('assets/vendor/file-input/themes/fa5/theme.min.js') }}"></script>
+
+    {{-- Summernote --}}
+    <script src="{{ asset('assets/vendor/summernote/summernote-bs4.min.js') }}"></script>
+
+    {{-- <script src="{{ asset('build/assets/app-ed8d0f89.js') }}"></script> --}}
+
+    @stack('js')
+
     </body>
 
     </html>

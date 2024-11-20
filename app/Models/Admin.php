@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -40,4 +41,11 @@ class Admin extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    ################################### START RELATIONS
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+    ################################### END RELATIONS
 }

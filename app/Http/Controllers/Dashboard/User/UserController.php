@@ -21,9 +21,7 @@ class UserController extends Controller
         $limit_by = $request->limit_by ?? 5;
 
         $users = User::when($request->keyword, function ($query) use ($request) {
-            $query->where(function ($query) use ($request) {
                 $query->whereAny(['name', 'email'], 'LIKE', '%' . $request->keyword . '%');
-            });
         })
             ->when(!is_null($request->status), function ($query) use ($request) {
                 $query->where('status', $request->status);

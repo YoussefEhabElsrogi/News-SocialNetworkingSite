@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\Auth\Passwords\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\Auth\Passwords\ResetPasswordController;
 use App\Http\Controllers\Dashboard\Category\CategoryController;
+use App\Http\Controllers\Dashboard\Post\PostController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,5 +50,10 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         // Category Routes
         Route::resource('categories', CategoryController::class);
         Route::get('categories/status/{id}', [CategoryController::class, 'changeStatus'])->name('categories.changeStatus');
+
+        // Post Routes
+        Route::resource('posts', PostController::class);
+        Route::get('posts/status/{id}', [PostController::class, 'changeStatus'])->name('posts.changeStatus');
+        Route::post('posts/image/delete/{id}', [PostController::class, 'deletePostImage'])->name('posts.image.delete');
     });
 });

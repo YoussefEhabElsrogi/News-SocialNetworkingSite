@@ -23,10 +23,10 @@
                             <li data-target="#newsCarousel" data-slide-to="2"></li>
                         </ol>
                         <div class="carousel-inner">
-                            @foreach ($singlePost->images as $image)
-                                <div
-                                    class="carousel-item @if ($loop->index == 0) active : {{ null }} @endif">
-                                    <img src="{{ asset($image->path) }}" class="d-block w-100" alt="First Slide" />
+                            @foreach ($singlePost->images as $index => $image)
+                                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                    <img src="{{ asset($image->path) }}" class="d-block w-100"
+                                        alt="Slide {{ $index + 1 }}" style="height: 500px; object-fit: cover;" />
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5 style="color: red">{{ $singlePost->title }}</h5>
                                     </div>
@@ -43,6 +43,16 @@
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
+                    <div class="alert alert-info d-flex align-items-center p-3 mt-3" style="background-color: #e9f7ff; border-left: 5px solid #007bff;">
+                        <i class="bi bi-person-circle" style="font-size: 2rem; color: #007bff; margin-right: 15px;"></i>
+                        <div>
+                            <span style="font-weight: bold; font-size: 1.1rem; color: #333;">Publisher:</span>
+                            <span style="font-weight: 500; font-size: 1.1rem; color: #007bff;">
+                                {{ $singlePost->user->name ?? $singlePost->admin->name }}
+                            </span>
+                        </div>
+                    </div>
+
                     <div class="sn-content text-break">{!! $singlePost->desc !!}</div>
 
                     <div style="display: none;font-size:20px" id="errorMessage" class="alert alert-danger">

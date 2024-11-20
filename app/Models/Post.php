@@ -25,6 +25,7 @@ class Post extends Model
         'comment_able',
         'status',
         'user_id',
+        'admin_id',
         'category_id',
     ];
 
@@ -58,6 +59,10 @@ class Post extends Model
     public function images(): HasMany
     {
         return $this->hasMany(Image::class);
+    }
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class);
     }
     ################################### END RELATIONS
 
