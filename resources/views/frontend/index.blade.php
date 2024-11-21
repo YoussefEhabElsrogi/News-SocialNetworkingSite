@@ -21,7 +21,7 @@
                         @foreach ($latestThree as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img width="510px" height="383px" src="{{ asset($post->images->first()->path) }}" />
+                                    <img style="height: 383px;width:540px" src="{{ $post->images->first()->path }}" />
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
@@ -85,55 +85,38 @@
                 <div class="col-md-6">
                     <ul class="nav nav-pills nav-justified">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="pill" href="#featured">Oldest News</a>
+                            <a class="nav-link active" data-toggle="pill" href="#featured"> Popular News</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="#popular">Popular News</a>
+                            <a class="nav-link" data-toggle="pill" href="#popular"> Oldest News</a>
                         </li>
                     </ul>
-
                     <div class="tab-content">
-                        {{-- Oldest Three Posts --}}
                         <div id="featured" class="container tab-pane active">
-                            @forelse ($oldestPosts as $post)
+                            @foreach ($popularPosts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
                                         <img src="{{ asset($post->images->first()->path) }}" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
+                                        <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}
+                                            comment({{ $post->comments_count }})</a>
                                     </div>
                                 </div>
-                            @empty
-                                <div class="no-posts">
-                                    <h2 class="no-posts-message">No Posts Available</h2>
-                                    <p class="no-posts-description" style="width: 90%">
-                                        It looks like there are no posts available at the moment.
-                                        Please check back later or explore other sections of the site.
-                                    </p>
-                                </div>
-                            @endforelse
+                            @endforeach
                         </div>
-                        {{-- Popular News --}}
                         <div id="popular" class="container tab-pane fade">
-                            @forelse ($popularPosts as $post)
+                            @foreach ($oldestPosts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ asset($post->images->first()->path) }}" alt="{{ $post->title }}" />
+                                        <img src="{{ $post->images->first()->path ?? '' }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
                                 </div>
-                            @empty
-                                <div class="no-posts">
-                                    <h2 class="no-posts-message">No Posts Available</h2>
-                                    <p class="no-posts-description" style="width: 90%">
-                                        It looks like there are no posts available at the moment.
-                                        Please check back later or explore other sections of the site.
-                                    </p>
-                                </div>
-                            @endforelse
+                            @endforeach
+
                         </div>
 
                     </div>
@@ -147,62 +130,41 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="pill" href="#m-read">Most Read</a>
                         </li>
+
                     </ul>
 
                     <div class="tab-content">
-                        {{-- Return LatestThree Post --}}
-                        @php
-                            $latestThree = $posts->take(3);
-                        @endphp
-
-                        {{-- Content Latest News --}}
+                        {{-- content latest news --}}
                         <div id="m-viewed" class="container tab-pane active">
-                            @forelse ($latestThree as $post)
+                            @foreach ($latestThree as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ asset($post->images->first()->path) }}" alt="{{ $post->title }}" />
+                                        <img src="{{ $post->images->first()->path ?? '' }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
                                 </div>
-                            @empty
-                                <div class="no-posts">
-                                    <h2 class="no-posts-message">No Posts Available</h2>
-                                    <p class="no-posts-description" style="width: 90%">
-                                        It looks like there are no posts available at the moment.
-                                        Please check back later or explore other sections of the site.
-                                    </p>
-                                </div>
-                            @endforelse
+                            @endforeach
                         </div>
 
-                        {{-- Content Most Read News --}}
                         <div id="m-read" class="container tab-pane fade">
-                            @forelse ($greatestPostsViews as $post)
+                            @foreach ($greatestPostsViews as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ asset($post->images->first()->path) }}" alt="{{ $post->title }}" />
+                                        <img src="{{ $post->images->first()->path ?? '' }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}
                                             ({{ $post->number_of_views }})
-                                            Views</a>
+                                        </a>
                                     </div>
                                 </div>
-                            @empty
-                                <div class="no-posts">
-                                    <h2 class="no-posts-message">No Posts Available</h2>
-                                    <p class="no-posts-description" style="width: 90%">
-                                        It looks like there are no posts available at the moment.
-                                        Please check back later or explore other sections of the site.
-                                    </p>
-                                </div>
-                            @endforelse
+                            @endforeach
+
                         </div>
+
                     </div>
-
-
                 </div>
             </div>
         </div>

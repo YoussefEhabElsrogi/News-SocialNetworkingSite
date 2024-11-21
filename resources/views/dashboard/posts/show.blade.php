@@ -1,127 +1,104 @@
 @extends('layouts.dashboard.app')
 
-@section('title', 'Show User: ' . $user->name)
+@section('title', 'Show Post')
 
 @push('css')
-    <style>
-        .profile-image {
-            transition: transform 0.3s ease, border 0.3s ease;
-        }
-
-        .profile-image:hover {
-            transform: scale(1.2);
-            border: 3px solid #007bff;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/css/style.css') }}">
 @endpush
 
 @section('content')
-    <div class="container mt-5">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-                <h3 class="text-center mb-0">User Details: {{ $user->name }}</h3>
+    <div class="d-flex justify-content-center">
+        <div class="card-body shadow mb-4" style="max-width: 100ch">
+            <a class="btn btn-primary" href="{{ route('dashboard.posts.index', ['page' => request()->page]) }}">Back To
+                Posts</a>
+            <br><br>
+            <div id="newsCarousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @foreach ($post->images as $index => $image)
+                        <li data-target="#newsCarousel" data-slide-to="{{ $index }}"
+                            class="{{ $index == 0 ? 'active' : '' }}"></li>
+                    @endforeach
+                </ol>
+                <div class="carousel-inner" style="height: 70ch">
+                    @foreach ($post->images as $index => $image)
+                        <div class="carousel-item @if ($index == 0) active @endif">
+                            <img src="{{ asset($image->path) }}" class="d-block w-100" alt="Slide {{ $index + 1 }}">
+                        </div>
+                    @endforeach
+                </div>
+                <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <div class="card-body">
-                <div class="text-center mb-4">
-                    @if ($user->image)
-                        <a href="{{ asset($user->image) }}" target="_blank">
-                            <img src="{{ asset($user->image) }}" alt="Image of {{ $user->name }}"
-                                class="img-thumbnail rounded-circle profile-image"
-                                style="width: 230px; height: 230px; object-fit: cover;">
-                        </a>
-                    @else
-                        <span class="text-muted">No image available for this user</span>
-                    @endif
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Name</strong></label>
-                            <input type="text" value="{{ $user->name }}" class="form-control" readonly>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Username</strong></label>
-                            <input type="text" value="{{ $user->username }}" class="form-control" readonly>
-                        </div>
+            <br>
+            <div class="row">
+                <div class="col-4">
+                    <div>
+                        <span style="font-weight: bold; font-size: 1.1rem; color: #333;">Publisher:</span>
+                        <span style="font-weight: 500; font-size: 1.1rem; color: #007bff;">
+                            {{ $post->user->name ?? $post->admin->name }}
+                        </span>
                     </div>
                 </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Email</strong></label>
-                            <input type="email" value="{{ $user->email }}" class="form-control" readonly>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Phone</strong></label>
-                            <input type="text" value="{{ $user->phone }}" class="form-control" readonly>
-                        </div>
-                    </div>
+                <div class="col-4">
+                    <h6>Views : {{ $post->number_of_views }} <i class="fa fa-eye"></i></h6>
                 </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Status</strong></label>
-                            <input type="text" value="{{ $user->status == 1 ? 'Active' : 'Not Active' }}"
-                                class="form-control" readonly>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Email Status</strong></label>
-                            <input type="text" value="{{ $user->email_verified_at ? 'Active' : 'Not Active' }}"
-                                class="form-control" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Country</strong></label>
-                            <input type="text" value="{{ $user->country }}" class="form-control" readonly>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>City</strong></label>
-                            <input type="text" value="{{ $user->city }}" class="form-control" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Street</strong></label>
-                            <input type="text" value="{{ $user->street }}" class="form-control" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <a href="{{ route('dashboard.users.changeStatus', $user->id) }}"
-                        class="btn btn-{{ $user->status == 1 ? 'warning' : 'success' }} mx-2">
-                        {{ $user->status == 1 ? 'Block' : 'Activate' }}
-                    </a>
-                    <a href="javascript:void(0)"
-                        onclick="if(confirm('Do you want to delete this user?')) { document.getElementById('delete_user').submit(); }"
-                        class="btn btn-danger mx-2">
-                        Delete
-                    </a>
+                <div class="col-4">
+                    <h6>Created At : {{ $post->created_at->format('Y-m-d h:m') }} <i class="fa fa-edit"></i></h6>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <h6>Comments : {{ $post->comment_able == 1 ? 'Active' : 'Not Active' }} <i class="fa fa-comment"></i>
+                    </h6>
+                </div>
+                <div class="col-4">
+                    <h6>Status :
+                        <i class="fa @if ($post->status == 0) fa-plane status-inactive @else fa-wifi status-active @endif"
+                            title="{{ $post->status == 0 ? 'Inactive' : 'Active' }}"></i>
+                    </h6>
+                </div>
+                <div class="col-4">
+                    <h6>Slug : {{ $post->slug }} <i class="fa fa-share-square"></i></h6>
+                </div>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+            <div class="sn-content">
+                <h3>{{ $post->title }}</h3>
+                <div class="description">{!! $post->desc !!}</div>
+            </div>
+
+            <br><br>
+
+            <!-- Comments Section -->
+            <div class="comments-section">
+                <h5>Comments ({{ $post->comments->count() }})</h5>
+                @forelse ($post->comments as $comment)
+                    <div class="comment-item">
+                        <img src="{{ asset($comment->user->image) }}" alt="{{ $comment->user->name }}">
+                        <div class="comment-content">
+                            <h6>{{ $comment->user->name }} <span
+                                    class="comment-time">{{ $comment->created_at->diffForHumans() }}</span></h6>
+                            <p>{{ $comment->comment }}</p>
+                        </div>
+                        <div class="comment-actions">
+                            <a href="" class="text-danger">Delete</a>
+                        </div>
+                    </div>
+                @empty
+                    <div class="no-comments">No comments yet. Be the first to comment!</div>
+                @endforelse
+            </div>
+
         </div>
-
-        <form id="delete_user" action="{{ route('dashboard.users.destroy', $user->id) }}" method="POST" class="d-none">
-            @csrf
-            @method('DELETE')
-        </form>
     </div>
 @endsection

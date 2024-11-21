@@ -50,12 +50,12 @@ class ImageManager
         }
     }
 
-    private static function generateImageName($image)
+    public static function generateImageName($image)
     {
         return Str::uuid() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
     }
 
-    private static function storeImageInLocal($image, string $imageName, string $folder)
+    public static function storeImageInLocal($image, string $imageName, string $folder)
     {
         // Store image in the specified folder and return the path
         return $image->storeAs("uploads/$folder", $imageName, ['disk' => 'uploads']);

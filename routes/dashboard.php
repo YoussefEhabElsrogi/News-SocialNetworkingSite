@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\Auth\Passwords\ResetPasswordController;
 use App\Http\Controllers\Dashboard\Category\CategoryController;
 use App\Http\Controllers\Dashboard\Post\PostController;
 use App\Http\Controllers\Dashboard\User\UserController;
+use App\Http\Controllers\Dashboard\Setting\SettignController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -55,5 +56,11 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::resource('posts', PostController::class);
         Route::get('posts/status/{id}', [PostController::class, 'changeStatus'])->name('posts.changeStatus');
         Route::post('posts/image/delete/{id}', [PostController::class, 'deletePostImage'])->name('posts.image.delete');
+
+        // ******************** Settings Routes ********************
+        Route::controller(SettignController::class)->prefix('settings')->name('settings.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/update', 'update')->name('update');
+        });
     });
 });

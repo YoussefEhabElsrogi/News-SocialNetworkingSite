@@ -43,7 +43,8 @@
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
-                    <div class="alert alert-info d-flex align-items-center p-3 mt-3" style="background-color: #e9f7ff; border-left: 5px solid #007bff;">
+                    <div class="alert alert-info d-flex align-items-center p-3 mt-3"
+                        style="background-color: #e9f7ff; border-left: 5px solid #007bff;">
                         <i class="bi bi-person-circle" style="font-size: 2rem; color: #007bff; margin-right: 15px;"></i>
                         <div>
                             <span style="font-weight: bold; font-size: 1.1rem; color: #333;">Publisher:</span>
@@ -113,13 +114,11 @@
                         <div class="row sn-slider">
                             @foreach ($postsRelated as $post)
                                 <div class="col-md-4">
-                                    <div class="sn-img">
-                                        <img src="{{ asset($post->images->first()->path) }}" class="img-fluid"
+                                    <div class="sn-img" style="width: 100%;height: 150px">
+                                        <img src="{{ asset($post->images->first()->path) }}"class="img-fluid"
                                             alt="{{ $post->title }}" />
                                         <div class="sn-title">
-                                            <a title="{{ $post->title }}"
-                                                href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}
-                                            </a>
+                                            <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                         </div>
                                     </div>
                                 </div>

@@ -1,0 +1,176 @@
+.carousel-inner img {
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+    border-radius: 20px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-8px);
+}
+
+.notification {
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #f7f7f7;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.notification a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.notification a:hover {
+    text-decoration: underline;
+}
+
+.sn-content h3 {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.sn-content {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger,
+.btn-info,
+.btn-primary {
+    border-radius: 30px;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.btn-danger:hover {
+    background-color: #d9534f;
+}
+
+.btn-info:hover {
+    background-color: #17a2b8;
+}
+
+.btn-primary:hover {
+    background-color: #007bff;
+}
+
+.row {
+    margin-top: 20px;
+}
+
+.status-label {
+    font-weight: bold;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.status-label.active {
+    color: white;
+    background-color: green;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.status-label.inactive {
+    color: white;
+    background-color: red;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.status-inactive {
+    color: #dc3545;
+    transition: color 0.3s ease;
+}
+
+.status-active {
+    color: #28a745;
+    transition: color 0.3s ease;
+}
+
+/* New Styles for Comments */
+.comments-section {
+    margin-top: 30px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.comment-item .comment-content {
+    flex: 1;
+}
+
+.comment-item .comment-content h6 {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.comment-item .comment-content p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.comment-item .comment-content .comment-time {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.comment-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.comment-actions a {
+    font-size: 0.9rem;
+    color: #dc3545;
+    margin-left: 10px;
+}
+
+.comment-actions a:hover {
+    color: #c82333;
+}
+
+.no-comments {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #888;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+}

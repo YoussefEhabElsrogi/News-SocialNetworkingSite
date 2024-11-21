@@ -18,7 +18,8 @@
 
                     @auth
                         <a href="javascript:void(0)"
-                            onclick="event.preventDefault(); if(confirm('Do You Want To Logout?')) document.getElementById('formLogout').submit();">Logout</a>
+                            onclick="event.preventDefault(); if(confirm('Do You Want To Logout?')) document.getElementById('formLogout').submit();">Logout
+                        </a>
                     @endauth
 
                     <form id="formLogout" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -38,7 +39,7 @@
             <div class="col-lg-3 col-md-4">
                 <div class="b-logo">
                     <a href="index.html">
-                        <img src="{{ asset('assets/frontend/img/') }}/{{ $settings->logo }}" alt="Logo" />
+                        <img src="{{ asset($settings->logo) }}" alt="Logo" />
                     </a>
                 </div>
             </div>
