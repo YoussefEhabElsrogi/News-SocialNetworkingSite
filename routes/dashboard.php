@@ -3,10 +3,12 @@
 use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\Auth\Passwords\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\Auth\Passwords\ResetPasswordController;
+use App\Http\Controllers\Dashboard\Authorization\AuthorizationController;
 use App\Http\Controllers\Dashboard\Category\CategoryController;
 use App\Http\Controllers\Dashboard\Post\PostController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use App\Http\Controllers\Dashboard\Setting\SettignController;
+use App\Http\Controllers\Dashborad\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -44,6 +46,9 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             return view('dashboard.index');
         })->name('home');
 
+
+        Route::resource('authorizations', AuthorizationController::class)->middleware('can:authorizations');
+
         // User Routes
         Route::resource('users', UserController::class);
         Route::get('users/status/{id}', [UserController::class, 'changeStatus'])->name('users.changeStatus');
@@ -62,5 +67,9 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('/update', 'update')->name('update');
         });
+
+        // Admin Routes
+        Route::resource('admins', AdminController::class);
+        Route::get('admins/status/{id}', [AdminController::class, 'changeStatus'])->name('admins.changeStatus');
     });
 });

@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -20,7 +22,9 @@ class Admin extends Authenticatable
         'name',
         'username',
         'email',
+        'role_id',
         'password',
+        'status',
     ];
 
     /**
@@ -42,10 +46,30 @@ class Admin extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function hasAccess($config_permession)
+    {
+        $authorizations = $this->authorization; // get admin role
+
+        if (!$authorizations) {
+            return false;
+        }
+
+        foreach ($authorizations->permessions as $permission) {
+            if ($config_permession == $permission ?? false) {
+                return true;
+            }
+        }
+    }
+
     ################################### START RELATIONS
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function authorization(): BelongsTo
+    {
+        return $this->belongsTo(Authorization::class, 'role_id');
     }
     ################################### END RELATIONS
 }

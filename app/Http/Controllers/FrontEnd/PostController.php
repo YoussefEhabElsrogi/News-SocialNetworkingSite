@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Events\StoreCommentEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
-use App\Models\User;
 use App\Notifications\NewCommentNotify;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -77,7 +73,7 @@ class PostController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to create comment',
-                'error' => $e->getMessage(),
+                'error' => 'Try again latter',
             ], 500);
         }
     }

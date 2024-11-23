@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class SettignController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:settings');
+    }
     public function index()
     {
         return view('dashboard.settings.index');
@@ -48,8 +52,6 @@ class SettignController extends Controller
         // Redirect the user back to the settings index page
         return redirect()->route('dashboard.settings.index');
     }
-
-
     private function handleImageUpdate($newImage, $currentImagePath, $folder = 'setting')
     {
         if ($newImage) {

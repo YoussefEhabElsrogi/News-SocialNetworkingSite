@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:posts');
+    }
+
     /**
      * Display a listing of the resource.
      */
