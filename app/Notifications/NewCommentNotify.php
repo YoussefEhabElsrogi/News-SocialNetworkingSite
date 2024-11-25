@@ -2,27 +2,25 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
+
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 class NewCommentNotify extends Notification
 {
+    public $comment, $post;
     /**
      * Create a new notification instance.
      */
-    public $comment, $post;
     public function __construct($comment, $post)
     {
         $this->comment = $comment;
         $this->post = $post;
     }
 
-
     public function via(object $notifiable): array
     {
-        return  ['database', 'broadcast'];
+        return ['database', 'broadcast'];
     }
 
     public function toDatabase(object $notifiable)
@@ -35,7 +33,8 @@ class NewCommentNotify extends Notification
             'link' => route('front.post.show', $this->post->slug),
         ];
     }
-    public function toBroadcast(object $notifiable)
+
+    public function toBroadcast($notifiable)
     {
         return [
             'userMakeCommentId' => $this->comment->user_id,
@@ -45,12 +44,5 @@ class NewCommentNotify extends Notification
             'link' => route('front.post.show', $this->post->slug),
         ];
     }
-    public function broadcastType(): string
-    {
-        return 'NewCommentNotify';
-    }
-    public function databaseType(object $notifiable): string
-    {
-        return 'NewCommentNotify';
-    }
+
 }

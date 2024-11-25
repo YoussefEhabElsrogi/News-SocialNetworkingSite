@@ -16,11 +16,10 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
  */
 
 import Echo from "laravel-echo";
-
 import Pusher from "pusher-js";
 window.Pusher = Pusher;
 
-console.log("Hello Laravel Echo");
+console.log("hello from bootstrap js file");
 
 window.Echo = new Echo({
     broadcaster: "pusher",
@@ -33,4 +32,8 @@ window.Echo = new Echo({
     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? "https") === "https",
     enabledTransports: ["ws", "wss"],
+});
+
+window.Echo.private("users." + userId).notification((event) => {
+    console.log(event);
 });

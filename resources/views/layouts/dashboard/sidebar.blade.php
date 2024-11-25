@@ -131,14 +131,15 @@
         @endcan --}}
 
 
-        {{-- @can('contacts')
+        @can('contacts')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.contacts.index') }}">
                     <i class="fas fa-fw fa-phone"></i>
                     <span>Contacts</span></a>
             </li>
         @endcan
-        @can('notifications')
+
+        {{-- @can('notifications')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.notifications.index') }}">
                     <i class="fas fa-fw fa-table"></i>

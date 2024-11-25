@@ -51,14 +51,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'users.' . $this->id;
+    }
+
     ################################### START RELATIONS
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
-    }
-    public function receivesBroadcastNotificationsOn(): string
-    {
-        return 'users.' . $this->id;
     }
     public function comments(): HasMany
     {

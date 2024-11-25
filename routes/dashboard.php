@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\Auth\Passwords\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\Auth\Passwords\ResetPasswordController;
 use App\Http\Controllers\Dashboard\Authorization\AuthorizationController;
 use App\Http\Controllers\Dashboard\Category\CategoryController;
+use App\Http\Controllers\Dashboard\Contact\ContactController;
 use App\Http\Controllers\Dashboard\Post\PostController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use App\Http\Controllers\Dashboard\Setting\SettignController;
@@ -62,7 +63,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('posts/status/{id}', [PostController::class, 'changeStatus'])->name('posts.changeStatus');
         Route::post('posts/image/delete/{id}', [PostController::class, 'deletePostImage'])->name('posts.image.delete');
 
-        // ******************** Settings Routes ********************
+        // ******************** Setting Routes **************************
         Route::controller(SettignController::class)->prefix('settings')->name('settings.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('/update', 'update')->name('update');
@@ -71,5 +72,12 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         // Admin Routes
         Route::resource('admins', AdminController::class);
         Route::get('admins/status/{id}', [AdminController::class, 'changeStatus'])->name('admins.changeStatus');
+
+        // ******************** Contact Routes **************************
+        Route::controller(ContactController::class)->prefix('contacts')->as('contacts.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/show/{id}', 'show')->name('show');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+        });
     });
 });
