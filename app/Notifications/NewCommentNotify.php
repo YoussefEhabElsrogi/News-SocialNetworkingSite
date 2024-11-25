@@ -2,12 +2,14 @@
 
 namespace App\Notifications;
 
-
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Log;
 
-class NewCommentNotify extends Notification
+class NewCommentNotify extends Notification implements ShouldBroadcast
 {
+    use Queueable;
+
     public $comment, $post;
     /**
      * Create a new notification instance.
@@ -45,4 +47,13 @@ class NewCommentNotify extends Notification
         ];
     }
 
+    public function broadcastOn()
+    {
+        return ['users.' . $this->post->user_id];
+    }
+
+    public function broadcastAs()
+    {
+        return 'CommentNotification';
+    }
 }
