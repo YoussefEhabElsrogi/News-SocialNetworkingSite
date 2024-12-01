@@ -49,4 +49,16 @@ class LoginController extends Controller
         setFlashMessage('success', 'You Logged In Successfully');
         return to_route('front.index');
     }
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : to_route('login');
+    }
 }

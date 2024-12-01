@@ -13,6 +13,6 @@ class CommentSeeder extends Seeder
      */
     public function run(): void
     {
-        Comment::factory()->count(200)->create();
+        Comment::factory()->count(300)->create();
     }
 }

@@ -34,6 +34,15 @@
                     @enderror
                 </div>
 
+                <!-- Post Small Description -->
+                <div class="form-group">
+                    <label for="small_desc">Post Small Description</label>
+                    <textarea id="small_desc" name="small_desc" class="form-control" placeholder="Enter Description">{{ old('small_desc') }}</textarea>
+                    @error('small_desc')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+
                 <!-- Post Description -->
                 <div class="form-group">
                     <label for="postContent">Post Description</label>

@@ -29,6 +29,14 @@ class LoginController extends Controller
         if (Auth::guard('admin')->attempt($credentials, $remember)) {
             // Authentication successful
             $request->session()->regenerate();
+            // if admin has permission home -> redirect to home , else redirect the first page in this permission
+
+            $permessions = Auth::guard('admin')->user()->authorization->permessions;
+            $firstPermission = $permessions[0];
+
+            if (!in_array('home', $permessions)) {
+                return redirect()->intended('dashboard/' . $firstPermission);
+            }
             return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
         }
 

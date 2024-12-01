@@ -52,7 +52,7 @@ Route::group(['as' => 'front.'], function () {
         ->name('search');
 
     // Dashboard Routes
-    Route::prefix('user')->name('dashboard.')->middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('user')->name('dashboard.')->middleware(['auth:web', 'verified', 'checkUserStatus'])->group(function () {
         // Profile Routes
         Route::controller(ProfileController::class)->group(function () {
             Route::get('profile', 'index')->name('profile');
@@ -79,6 +79,10 @@ Route::group(['as' => 'front.'], function () {
             Route::delete('/delete-all', 'deleteAll')->name('deleteAll');
         });
     });
+
+    Route::get('wait', function () {
+        return view('frontend.wait');
+    })->name('wait');
 });
 
 // Email Verification Routes

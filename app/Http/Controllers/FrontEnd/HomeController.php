@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -24,11 +23,11 @@ class HomeController extends Controller
         $popularPosts = Post::active()->withCount('comments')->orderBy('comments_count', 'desc')->take(3)->get();
 
         // Fetch all categories and map over them to get first 2 posts for each category
-        $categories = Category::all(); // Get all categories
+        $categories = Category::active()->has('posts', '>=', 2)->get();
+
         $categories_with_posts = $categories->map(function (Category $category) {
-            // For each category, get its first 2 posts
-            $category->posts = $category->posts()->take(2)->get();
-            return $category; // Return the category with modified posts
+            $category->posts = $category->posts()->active()->take(2)->get();
+            return $category;
         });
 
         // Return the view with the data variables

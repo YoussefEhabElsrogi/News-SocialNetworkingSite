@@ -1,5 +1,5 @@
 <div class="card-body">
-    <form action="{{ url()->current() }}" method="GET">
+    <form action="{{ route('dashboard.posts.index') }}" method="GET">
         <div class="row">
             <div class="col-2">
                 <div class="from-group">

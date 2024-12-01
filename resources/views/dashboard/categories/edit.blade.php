@@ -13,15 +13,18 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <!-- Input field for Category Name -->
                         <input type="text" name="name" value="{{ $category->name }}"
                             placeholder="Enter Category Name" class="form-control">
                         <br>
+                        <!-- Textarea field for Small Description -->
+                        <textarea name="small_desc" placeholder="Enter Small Description" class="form-control" rows="3">{{ $category->small_desc }}</textarea>
+                        <br>
+                        <!-- Status Dropdown -->
                         <select name="status" class="form-control">
                             <option disabled selected>Select Status</option>
-                            <option value="1" @selected($category->status == 1)>Active
-                            </option>
-                            <option value="0"@selected($category->status == 0)>Not Active
-                            </option>
+                            <option value="1" @selected($category->status == 1)>Active</option>
+                            <option value="0" @selected($category->status == 0)>Not Active</option>
                         </select>
                     </div>
                 </div>

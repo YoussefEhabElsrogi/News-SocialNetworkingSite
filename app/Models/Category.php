@@ -21,6 +21,7 @@ class Category extends Model
         'name',
         'slug',
         'status',
+        'small_desc'
     ];
 
     /**
@@ -37,17 +38,17 @@ class Category extends Model
         ];
     }
 
+    ################################### START SCOPE
+    public function scopeActive(Builder $query)
+    {
+        return $query->whereStatus(1);
+    }
+    ################################### END SCOPE
+
     ################################### START RELATIONS
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
     ################################### END RELATIONS
-
-    ################################### START SCOPE
-    public function scopeActive(Builder $query)
-    {
-        $query->where('status', 1);
-    }
-    ################################### END SCOPE
 }

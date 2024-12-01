@@ -37,6 +37,7 @@
                                 <th>Name</th>
                                 <th>Status</th>
                                 <th>Posts Count</th>
+                                <th>Small Description</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -47,6 +48,7 @@
                                 <th>Name</th>
                                 <th>Status</th>
                                 <th>Posts Count</th>
+                                <th>Small Description</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -58,6 +60,7 @@
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->status == 1 ? 'Active' : 'Not Active' }}</td>
                                     <td>{{ $category->posts_count }}</td>
+                                    <td>{{ $category->small_desc }}</td>
                                     <td>{{ $category->created_at }}</td>
                                     <td>
                                         <a href="javascript:void(0)"

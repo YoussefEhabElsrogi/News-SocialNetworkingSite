@@ -12,16 +12,20 @@
                         <p><i class="fa fa-envelope"></i>{{ $settings->email }}</p>
                         <p><i class="fa fa-phone"></i>{{ $settings->phone }}</p>
                         <div class="social">
-                            <a href="{{ $settings->twitter }}" target="_blank" title="Follow us on Twitter">
+                            <a href="{{ $settings->twitter }}" rel="nofollow" target="_blank"
+                                title="Follow us on Twitter">
                                 <i class="fab fa-twitter"></i>
                             </a>
-                            <a href="{{ $settings->facebook }}" target="_blank" title="Like us on Facebook">
+                            <a href="{{ $settings->facebook }}" rel="nofollow" target="_blank"
+                                title="Like us on Facebook">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="{{ $settings->instagram }}" target="_blank" title="Follow us on Instagram">
+                            <a href="{{ $settings->instagram }}" rel="nofollow" target="_blank"
+                                title="Follow us on Instagram">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="{{ $settings->youtube }}" target="_blank" title="Subscribe to our YouTube channel">
+                            <a href="{{ $settings->youtube }}" rel="nofollow" target="_blank"
+                                title="Subscribe to our YouTube channel">
                                 <i class="fab fa-youtube"></i>
                             </a>
                         </div>

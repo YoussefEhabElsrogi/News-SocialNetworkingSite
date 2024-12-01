@@ -28,8 +28,11 @@ class CheckSettingProvider extends ServiceProvider
                 'country' => 'Egypt',
                 'city' => 'Alex',
                 'street' => 'Elsarawy',
+                'small_desc' => 'Breaking news, updates, and in-depth articles covering global events, politics, entertainment, sports, and more. Stay informed with the latest trends and stories happening around the world.'
             ]);
         });
+
+        $settings->whatsapp = "https://wa.me/" . $settings->phone;
 
         view()->share('settings', $settings);
     }

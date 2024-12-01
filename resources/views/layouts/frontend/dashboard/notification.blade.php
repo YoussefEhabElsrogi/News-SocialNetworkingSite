@@ -42,11 +42,7 @@
                         <div class="notification alert alert-info d-flex justify-content-between align-items-center">
                             <div>
                                 <strong>You have a notification from
-                                    @if ($notification->data['userMakeCommentName'] === auth()->user()->name)
-                                        {{ $notification->data['userMakeCommentName'] }} (You)
-                                    @else
-                                        {{ $notification->data['userMakeCommentName'] }}
-                                    @endif
+                                    {{ $notification->data['userMakeCommentName'] }}
                                 </strong>
                                 <br>
                                 Post title: {{ $notification->data['post_title'] }}

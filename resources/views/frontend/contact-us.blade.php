@@ -71,11 +71,11 @@
                         <h4><i class="fa fa-envelope"></i> {{ $settings->email }}</h4>
                         <h4><i class="fa fa-phone"></i> {{ $settings->phone }}</h4>
                         <div class="social">
-                            <a href="{{ $settings->twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
-                            <a href="{{ $settings->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                            <a href="{{ $settings->linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="{{ $settings->instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a href="{{ $settings->youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
+                            <a href="{{ $settings->twitter }}" rel="nofollow"  target="_blank"><i class="fab fa-twitter"></i></a>
+                            <a href="{{ $settings->facebook }}" rel="nofollow" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a href="{{ $settings->linkedin }}" rel="nofollow" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="{{ $settings->instagram }}" rel="nofollow" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="{{ $settings->youtube }}" rel="nofollow" target="_blank"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>

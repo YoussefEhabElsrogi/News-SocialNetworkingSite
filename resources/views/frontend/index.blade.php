@@ -2,6 +2,10 @@
 
 @section('title', 'Home')
 
+@section('canonical', url()->full())
+
+@section('description', $settings->small_desc)
+
 @section('breadcrumb')
     @parent
 @endsection
@@ -85,10 +89,10 @@
                 <div class="col-md-6">
                     <ul class="nav nav-pills nav-justified">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="pill" href="#featured"> Popular News</a>
+                            <a class="nav-link active" data-toggle="pill" href="#featured">Popular News</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="#popular"> Oldest News</a>
+                            <a class="nav-link" data-toggle="pill" href="#popular">Oldest News</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -96,7 +100,7 @@
                             @foreach ($popularPosts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ asset($post->images->first()->path) }}" />
+                                        <img src="{{ asset($post->images->first()->path) }}" alt="{{ $post->title }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}
@@ -109,16 +113,14 @@
                             @foreach ($oldestPosts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $post->images->first()->path ?? '' }}" />
+                                        <img src="{{ $post->images->first()->path ?? '' }}" alt="{{ $post->title }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
                                 </div>
                             @endforeach
-
                         </div>
-
                     </div>
                 </div>
 
@@ -130,7 +132,6 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="pill" href="#m-read">Most Read</a>
                         </li>
-
                     </ul>
 
                     <div class="tab-content">
@@ -139,7 +140,7 @@
                             @foreach ($latestThree as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $post->images->first()->path ?? '' }}" />
+                                        <img src="{{ $post->images->first()->path ?? '' }}" alt="{{ $post->title }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
@@ -152,16 +153,14 @@
                             @foreach ($greatestPostsViews as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $post->images->first()->path ?? '' }}" />
+                                        <img src="{{ $post->images->first()->path ?? '' }}" alt="{{ $post->title }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}
-                                            ({{ $post->number_of_views }})
-                                        </a>
+                                            ({{ $post->number_of_views }})</a>
                                     </div>
                                 </div>
                             @endforeach
-
                         </div>
 
                     </div>
@@ -169,7 +168,8 @@
             </div>
         </div>
     </div>
-    <!-- Tab News Start-->
+    <!-- Tab News End-->
+
 
     <!-- Main News Start-->
     <div class="main-news">

@@ -27,7 +27,24 @@
     {{-- Summernote --}}
     <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/summernote-bs4.min.css') }}">
 
+    {{-- Moment --}}
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+
+    {{-- Auth User --}}
+    @auth('admin')
+        <script>
+            adminId = "{{ auth('admin')->user()->id }}";
+            role = 'admin'
+        </script>
+    @endauth
+
+    {{-- Vite --}}
+    @vite('resources/js/app.js')
+
     @stack('css')
+
+    {{-- Livewire CSS --}}
+    @livewireStyles
 
 </head>
 

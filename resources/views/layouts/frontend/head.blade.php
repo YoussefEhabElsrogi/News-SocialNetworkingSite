@@ -6,10 +6,18 @@
     <title>{{ config('app.name') }} | @yield('title')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Bootstrap News Template - Free HTML Templates" name="keywords" />
-    <meta content="Bootstrap News Template - Free HTML Templates" name="description" />
+
+    {{-- Meta Description --}}
+    <meta content="@yield('description')" name="description" />
+
+    {{-- Meta Robots --}}
+    <meta name="robots" content="index, follow">
+
+    {{-- Canonical Link --}}
+    <link rel="canonical" href="@yield('canonical')">
 
     <!-- Favicon -->
-    <link href="{{ asset('assets/frontend/img/') }}/favicon.ico" rel="icon" />
+    <link href="{{ asset('assets/frontend/img/favicon.ico') }}" rel="icon" />
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet" />
@@ -29,12 +37,18 @@
     {{-- Summernote --}}
     <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/summernote-bs4.min.css') }}">
 
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
+
     {{-- Auth User --}}
-    @auth
+    @auth('web')
         <script>
             userId = "{{ auth()->user()->id }}";
+            role = 'user';
         </script>
     @endauth
+
+    @stack('css')
 
     @vite('resources/js/app.js')
 </head>

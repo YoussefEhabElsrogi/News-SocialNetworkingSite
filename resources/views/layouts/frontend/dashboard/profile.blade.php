@@ -53,6 +53,9 @@
                             <input name="title" type="text" id="postTitle" class="form-control mb-2"
                                 placeholder="Post Title" value="{{ old('title') }}" />
 
+                            <!-- Small Description -->
+                            <textarea name="small_desc" class="form-control mb-2" rows="3" placeholder="Enter Small Description"></textarea>
+
                             <!-- Post Content -->
                             <textarea name="desc" id="postContent" class="form-control mb-2" rows="3" placeholder="What's on your mind?">{{ old('desc') }}</textarea>
 
@@ -126,11 +129,13 @@
 
                                         <!-- Add more carousel-item blocks for additional slides -->
                                     </div>
-                                    <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
+                                    <a class="carousel-control-prev" href="#newsCarousel" role="button"
+                                        data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span>
                                     </a>
-                                    <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
+                                    <a class="carousel-control-next" href="#newsCarousel" role="button"
+                                        data-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Next</span>
                                     </a>

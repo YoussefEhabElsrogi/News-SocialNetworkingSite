@@ -13,8 +13,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <!-- Category Name Input -->
                         <input type="text" name="name" placeholder="Enter Category Name" class="form-control">
                         <br>
+                        <!-- Small Description Input -->
+                        <textarea name="small_desc" placeholder="Enter Small Description" class="form-control" rows="3"></textarea>
+                        <br>
+                        <!-- Status Dropdown -->
                         <select name="status" class="form-control">
                             <option disabled selected>Select Status</option>
                             <option value="1">Active</option>

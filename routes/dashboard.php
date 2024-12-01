@@ -6,10 +6,14 @@ use App\Http\Controllers\Dashboard\Auth\Passwords\ResetPasswordController;
 use App\Http\Controllers\Dashboard\Authorization\AuthorizationController;
 use App\Http\Controllers\Dashboard\Category\CategoryController;
 use App\Http\Controllers\Dashboard\Contact\ContactController;
+use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\Notification\NotificationController;
 use App\Http\Controllers\Dashboard\Post\PostController;
+use App\Http\Controllers\Dashboard\Profile\ProfileController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use App\Http\Controllers\Dashboard\Setting\SettignController;
 use App\Http\Controllers\Dashborad\Admin\AdminController;
+use App\Http\Controllers\GeneralSearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -41,12 +45,11 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::middleware('auth:admin')->post('logout', 'logout')->name('logout');
     });
 
-    // Protected Routes
-    Route::middleware('auth:admin')->group(function () {
-        Route::get('home', function () {
-            return view('dashboard.index');
-        })->name('home');
+    // Dashboard Routes
+    Route::middleware(['auth:admin', 'checkAdminStatus'])->group(function () {
 
+        // Home Route
+        Route::get('home', HomeController::class)->name('home');
 
         Route::resource('authorizations', AuthorizationController::class)->middleware('can:authorizations');
 
@@ -61,6 +64,8 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         // Post Routes
         Route::resource('posts', PostController::class);
         Route::get('posts/status/{id}', [PostController::class, 'changeStatus'])->name('posts.changeStatus');
+        Route::get('posts/comments/{id}',[PostController::class, 'getAllComments'])->name('posts.getAllComments');
+        Route::delete('posts/comment/delete/{id}', [PostController::class, 'deleteComment'])->name('posts.deleteComment');
         Route::post('posts/image/delete/{id}', [PostController::class, 'deletePostImage'])->name('posts.image.delete');
 
         // ******************** Setting Routes **************************
@@ -73,11 +78,31 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::resource('admins', AdminController::class);
         Route::get('admins/status/{id}', [AdminController::class, 'changeStatus'])->name('admins.changeStatus');
 
-        // ******************** Contact Routes **************************
+        //******************** Contact Routes **************************
         Route::controller(ContactController::class)->prefix('contacts')->as('contacts.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/show/{id}', 'show')->name('show');
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
         });
+
+        //******************** Profile Routes **************************
+        Route::controller(ProfileController::class)->prefix('profile')->as('profile.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::patch('/update', 'update')->name('update');
+        });
+
+        //******************** Notifications Routes **************************
+        Route::controller(NotificationController::class)->prefix('notifications')->as('notifications.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+            Route::get('/delete-all', 'deleteAll')->name('deleteAll');
+        });
+
+        //******************** Generl Search Routes **************************
+        Route::get('search', [GeneralSearchController::class, 'search'])->name('search');
     });
+    //******************** Check Admin Blocked **************************
+    Route::get('wait', function () {
+        return view('dashboard.wait');
+    })->name('wait');
 });

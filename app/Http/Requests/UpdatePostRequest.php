@@ -28,6 +28,7 @@ class UpdatePostRequest extends FormRequest
             'comment_able' => ['in:on,off,1,0'],
             'images' => ['nullable'],
             'images.*' => ['image', 'mimes:png,jpg'],
+            'small_desc'=>['required' , 'min:3' , 'max:170'],
             'status' => ['nullable', 'in:1,0'],
         ];
     }

@@ -25,6 +25,7 @@ class Post extends Model
         'comment_able',
         'status',
         'user_id',
+        'small_desc',
         'admin_id',
         'category_id',
     ];

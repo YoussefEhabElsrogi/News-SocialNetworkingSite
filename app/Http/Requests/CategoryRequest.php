@@ -23,6 +23,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => ['required', 'min:2', 'max:50'],
+            'small_desc'=>['required' , 'min:3' , 'max:170'],
             'status' => ['required', 'in:0,1'],
         ];
     }

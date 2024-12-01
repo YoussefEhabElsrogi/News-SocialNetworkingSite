@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Post;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\{StorePostRequest, UpdatePostRequest};
+use App\Models\Comment;
 use App\Models\Image;
 use App\Models\Post;
 use App\Utils\ImageManager;
@@ -92,10 +93,7 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        // Find the post in the database
-        $post = Post::findOrFail($id);
-
-        // Show the user's details in the view
+        $post = Post::with(['comments.user'])->findOrFail($id);
         return view('dashboard.posts.show', compact('post'));
     }
 
@@ -105,6 +103,12 @@ class PostController extends Controller
     public function edit(string $id)
     {
         $post = Post::findOrFail($id);
+        $adminAuthId = auth()->guard('admin')->user()->id;
+
+        if (!$this->isOwnedByAdmin($adminAuthId, $post->admin_id)) {
+            abort(403, 'You are not authorized to edit this post.');
+        }
+
         return view('dashboard.posts.edit', compact('post'));
     }
 
@@ -115,9 +119,15 @@ class PostController extends Controller
     {
         $validatedData = $request->validated();
 
+        $adminAuthId = auth()->guard('admin')->user()->id;
+
         try {
 
             $post = Post::findOrFail($id);
+
+            if (!$this->isOwnedByAdmin($adminAuthId, $post->admin_id)) {
+                abort(403, 'You are not authorized to edit this post.');
+            }
 
             $post->update(collect($validatedData)->except(['_token', 'images'])->toArray());
 
@@ -189,5 +199,59 @@ class PostController extends Controller
             setFlashMessage('success', 'Post Active Suuccessfully!');
         }
         return redirect()->back();
+    }
+
+    public function deleteComment($id)
+    {
+        $comment = Comment::find($id);
+
+        if (!$comment) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Comment not found.',
+            ], 404);
+        }
+
+        $comment->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Comment deleted successfully.',
+        ], 200);
+    }
+
+    public function getAllComments($id)
+    {
+        $post = Post::find($id);
+
+        if (!$post) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Post not found.',
+            ], 404);
+        }
+
+        $comments = $post->comments()->with('user')->get();
+
+        return response()->json([
+            'status' => true,
+            'comments' => $comments->map(function ($comment) {
+                return [
+                    'id' => $comment->id,
+                    'comment' => $comment->comment,
+                    'created_at' => $comment->created_at,
+                    'user' => [
+                        'id' => $comment->user->id,
+                        'name' => $comment->user->name,
+                        'image' => $comment->user->image,
+                    ],
+                ];
+            }),
+        ], 200);
+    }
+    // In Post.php Model
+    private function isOwnedByAdmin($authAdminId, $adminId)
+    {
+        return $authAdminId === $adminId;
     }
 }

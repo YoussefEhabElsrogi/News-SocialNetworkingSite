@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Events\TestNotification;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Notifications\NewCommentNotify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class PostController extends Controller
 {
@@ -21,10 +21,8 @@ class PostController extends Controller
 
         ])->whereSlug($slug)->first();
 
-
         if (!$singlePost) {
-            setFlashMessage('error', 'Post Not Found');
-            return redirect()->back();
+            abort(404);
         }
 
         $singlePost->increment('number_of_views');
@@ -63,7 +61,12 @@ class PostController extends Controller
 
             $post = Post::findOrFail($data['post_id']);
 
-            $post->user->notify(new NewCommentNotify($comment, $post));
+            $userMakePost = $post->user;
+
+            // Send notification
+            if ($post->user->id !== auth()->user()->id) {
+                Notification::send($userMakePost, new NewCommentNotify($comment, $post));
+            }
 
             $comment->load('user');
 

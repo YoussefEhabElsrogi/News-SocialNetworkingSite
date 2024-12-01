@@ -27,5 +27,6 @@ class Setting extends Model
         'country',
         'city',
         'street',
+        'small_desc',
     ];
 }

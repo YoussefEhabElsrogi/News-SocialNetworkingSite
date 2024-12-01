@@ -137,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="row">
+                <div class="row">
                     <div class="col-12">
                         <div class="form-group">
                             <label class="lable"> Small Description</label>
@@ -147,21 +147,18 @@
                             @enderror
                         </div>
                     </div>
-                </div> --}}
+                </div>
 
                 <div class="row">
                     <!-- Logo Section -->
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="logo">Logo:</label>
-                            <input type="file" class="dropify form-control" id="logo" name="logo">
+                            Logo : <input type="file" class="dropify" name="logo" class="form-control">
                             @error('logo')
                                 <strong class="text-danger">{{ $message }}</strong>
                             @enderror
-                            <div class="text-center mt-3">
-                                <img class="img-thumbnail preview-image" src="{{ asset($settings->logo) }}"
-                                    alt="Logo">
-                            </div>
+                            <br>
+                            <img class="img-thumbnail" src="{{ asset($settings->logo) }}">
                         </div>
                     </div>
 

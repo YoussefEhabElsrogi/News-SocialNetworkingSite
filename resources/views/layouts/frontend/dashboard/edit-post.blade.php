@@ -45,6 +45,9 @@
                             <input type="text" class="form-control mb-2 post-title" name="title"
                                 value="{{ old('title', $post->title) }}" />
 
+                                {{-- Small Description --}}
+                                <textarea name="small_desc" class="form-control mb-2" rows="3" placeholder="Enter Small Description">{{ $post->small_desc??'' }}</textarea>
+
                             <!-- Editable Content -->
                             <textarea id="desc" class="form-control mb-2 post-content" name="desc">{{ old('desc', $post->desc) }}</textarea>
 

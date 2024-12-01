@@ -4,6 +4,10 @@
     Show {{ $singlePost->title }}
 @endsection
 
+@section('description', $singlePost->small_desc)
+
+@section('canonical', url()->full())
+
 @section('breadcrumb')
     @parent
     <li class="breadcrumb-item active">{{ $singlePost->title }}</li>
@@ -60,53 +64,68 @@
                         {{-- Display Error --}}
                     </div>
 
-                    <!-- Comment Section -->
-                    @if ($singlePost->comment_able == true)
-                        <div class="comment-section">
-                            <!-- Comment Input -->
-                            @auth
-                                <form method="POST" action="" id="commentForm">
-                                    <div class="comment-input">
-                                        @csrf
-                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                        <input type="hidden" name="post_id" value="{{ $singlePost->id }}">
-                                        <input id="commentInput" type="text" name="comment" placeholder="Add a comment..." />
-                                        <button type="submit">Comment</button>
-                                    </div>
-                                </form>
-                            @endauth
-
-
-                            <!-- Display Comments -->
-                            <div class="comments">
-                                @foreach ($singlePost->comments as $comment)
-                                    <div class="comment" style="display: flex;justify-content: center;align-items: center">
-                                        <div class="image">
-                                            <img src="{{ asset($comment->user->image) }}" alt="No image"
-                                                class="comment-img" />
+                    @auth('web')
+                        <!-- Comment Section -->
+                        @if (auth('web')->user()->status != false)
+                            @if ($singlePost->comment_able == true)
+                                <div class="comment-section bg-white p-6 rounded-lg shadow-md mt-6">
+                                    <!-- Comment Input -->
+                                    <form method="POST" action="" id="commentForm">
+                                        <div class="comment-input">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="post_id" value="{{ $singlePost->id }}">
+                                            <input id="commentInput" type="text" name="comment"
+                                                placeholder="Add a comment..." />
+                                            <button type="submit">Comment</button>
                                         </div>
-                                        <div class="comment-content">
-                                            <span class="username">{{ $comment->user->name }}</span>
-                                            <p class="comment-text">{{ $comment->comment }}</p>
-                                        </div>
+                                    </form>
+
+                                    <!-- Display Comments -->
+                                    <div class="comments">
+                                        @foreach ($singlePost->comments as $comment)
+                                            <div class="comment"
+                                                style="display: flex;justify-content: center;align-items: center">
+                                                <div class="image">
+                                                    <img src="{{ asset($comment->user->image) }}" alt="No image"
+                                                        class="comment-img" />
+                                                </div>
+                                                <div class="comment-content">
+                                                    <span class="username">{{ $comment->user->name }}</span>
+                                                    <p class="comment-text">{{ $comment->comment }}</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
+
+                                    <!-- Show More Button -->
+                                    @if ($singlePost->comments->count() > 2)
+                                        <button id="showMoreBtn" class="show-more-btn">Show more</button>
+                                    @endif
+                                </div>
+                            @else
+                                <div class="alert bg-yellow-50 text-yellow-700 p-4 rounded-lg shadow-md mt-6 text-center">
+                                    <h3 class="font-bold text-lg">
+                                        Comments are disabled for this post
+                                    </h3>
+                                </div>
+                            @endif
+                        @else
+                            <div class="alert bg-red-50 text-red-700 p-6 rounded-lg shadow-md mt-6 text-center">
+                                <h3 class="font-bold text-lg">
+                                    You are blocked in the system and cannot add comments.
+                                </h3>
+                                <p class="mt-2 text-sm text-red-600">
+                                    Please contact support if you believe this is an error.
+                                    <a href="{{ route('front.contact.create') }}"
+                                        class="text-red-700 font-semibold hover:text-red-900 underline mt-2 block">
+                                        Click here to contact support
+                                    </a> 
+                                </p>
                             </div>
 
-                            <!-- Show More Button -->
-                            @if ($singlePost->comments->count() > 2)
-                                <button id="showMoreBtn" class="show-more-btn">Show more</button>
-                            @endif
-                        </div>
-                    @else
-                        <div
-                            class="alert alert-info text-center d-flex justify-content-center align-items-center mt-4 p-3 rounded-5 shadow-sm">
-                            <h3 class="fw-bold" style="color: red;">
-                                Comments are disabled for this post 😔
-                            </h3>
-                        </div>
-                    @endif
-
+                        @endif
+                    @endauth
 
                     <!-- Related News -->
                     <div class="sn-related">
@@ -114,11 +133,12 @@
                         <div class="row sn-slider">
                             @foreach ($postsRelated as $post)
                                 <div class="col-md-4">
-                                    <div class="sn-img" style="width: 100%;height: 150px">
-                                        <img src="{{ asset($post->images->first()->path) }}"class="img-fluid"
+                                    <div class="sn-img">
+                                        <img src="{{ asset(asset($post->images->first()->path)) }}" class="img-fluid"
                                             alt="{{ $post->title }}" />
                                         <div class="sn-title">
-                                            <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
+                                            <a
+                                                href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -162,9 +182,10 @@
                                     {{-- Latest Posts --}}
                                     <div id="latest" class="container tab-pane fade show active">
                                         @foreach ($latestPosts as $post)
-                                            <div class="tn-news">
-                                                <div class="tn-img">
-                                                    <img src="{{ asset($post->images->first()->path) }}"
+                                            <div class="tn-news d-flex align-items-center mb-3">
+                                                <div class="tn-img mr-3">
+                                                    <img style="width: 100px; height: 100px; object-fit: cover;"
+                                                        src="{{ asset($post->images->first()->path) }}"
                                                         alt="{{ $post->title }}" />
                                                 </div>
                                                 <div class="tn-title">
@@ -178,14 +199,15 @@
                                     {{-- Popular Posts --}}
                                     <div id="popular" class="container tab-pane fade">
                                         @foreach ($popularPosts as $post)
-                                            <div class="tn-news">
-                                                <div class="tn-img">
-                                                    <img src="{{ asset($post->images->first()->path) }}"
+                                            <div class="tn-news d-flex align-items-center mb-3">
+                                                <div class="tn-img mr-3">
+                                                    <img style="width: 100px; height: 100px; object-fit: cover;"
+                                                        src="{{ asset($post->images->first()->path) }}"
                                                         alt="{{ $post->title }}" />
                                                 </div>
                                                 <div class="tn-title">
-                                                    <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}
-                                                    </a>
+                                                    <a
+                                                        href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                                 </div>
                                             </div>
                                         @endforeach
@@ -193,6 +215,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="sidebar-widget">
                             <h2 class="sw-title">News Category</h2>
@@ -280,7 +303,7 @@
                     if (response.comment) {
                         $('.comments').prepend(`
                         <div class="comment">
-                            <img src="{{ asset('') }}${response.comment.user.image}" alt="${response.comment.user.name || 'User'}'s image" class="comment-img" />
+                            <img src="{{ asset('') }}${response.comment.user.image}" alt='image'}'s image" class="comment-img" />
                             <div class="comment-content">
                                 <span class="username">${response.comment.user.name || 'User Name'}</span>
                                 <p class="comment-text">${response.comment.comment}</p>

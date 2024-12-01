@@ -4,6 +4,10 @@
     Category {{ $category->name }}
 @endsection
 
+@section('description', $category->small_desc)
+
+@section('canonical', url()->full())
+
 @section('breadcrumb')
     @parent
     <li class="breadcrumb-item active">{{ $category->name }}</li>

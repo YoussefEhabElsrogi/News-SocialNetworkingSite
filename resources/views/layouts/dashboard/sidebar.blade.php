@@ -111,8 +111,7 @@
         <!-- Divider -->
         {{-- <hr class="sidebar-divider"> --}}
 
-
-        {{-- @can('settings')
+        @can('settings')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
@@ -124,11 +123,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">setting managment:</h6>
                         <a class="collapse-item" href="{{ route('dashboard.settings.index') }}">Setting</a>
-                        <a class="collapse-item" href="{{ route('dashboard.related-site.index') }}">Related Sites</a>
+                        {{-- <a class="collapse-item" href="{{ route('dashboard.related-site.index') }}">Related Sites</a> --}}
                     </div>
                 </div>
             </li>
-        @endcan --}}
+        @endcan
 
 
         @can('contacts')
@@ -139,13 +138,13 @@
             </li>
         @endcan
 
-        {{-- @can('notifications')
+        @can('notifications')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.notifications.index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Notifications</span></a>
             </li>
-        @endcan --}}
+        @endcan
 
         <!-- Divider -->
         {{-- <hr class="sidebar-divider d-none d-md-block"> --}}
