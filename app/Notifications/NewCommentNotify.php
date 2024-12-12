@@ -3,11 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
-class NewCommentNotify extends Notification implements ShouldBroadcast
+class NewCommentNotify extends Notification implements ShouldQueue
 {
     // Remove the Queueable trait
     // use Queueable;
@@ -35,7 +35,7 @@ class NewCommentNotify extends Notification implements ShouldBroadcast
             'userMakeCommentName' => auth()->user()->name,
             'post_title' => $this->post->title,
             'comment' => $this->comment->comment,
-            'link' => route('front.post.show', $this->post->slug),
+            'post_slug' =>  $this->post->slug,
         ];
     }
 
@@ -46,7 +46,15 @@ class NewCommentNotify extends Notification implements ShouldBroadcast
             'userMakeCommentName' => auth()->user()->name,
             'post_title' => $this->post->title,
             'comment' => $this->comment->comment,
-            'link' => route('front.post.show', $this->post->slug),
+            'post_slug' =>  $this->post->slug,
         ]);
+    }
+    public function broadcastType(): string
+    {
+        return 'NewCommentNotify';
+    }
+    public function databaseType(object $notifiable): string
+    {
+        return 'NewCommentNotify';
     }
 }

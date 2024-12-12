@@ -67,7 +67,8 @@
                             @foreach ($category->posts as $post)
                                 <div class="col-md-6">
                                     <div class="cn-img">
-                                        <img src="{{ asset($post->images->first()->path) }}" />
+                                        <img src="{{ asset($post->images->first()->path) }}" class="img-fluid"
+                                            style="width: 300px; height: 200px; object-fit: cover;" alt="No Image" />
                                         <div class="cn-title">
                                             <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                         </div>
@@ -157,7 +158,8 @@
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}
-                                            ({{ $post->number_of_views }})</a>
+                                            ({{ $post->number_of_views }})
+                                        </a>
                                     </div>
                                 </div>
                             @endforeach
@@ -206,7 +208,8 @@
                         <h2>Read More</h2>
                         <ul>
                             @foreach ($read_more_posts as $post)
-                                <li><a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
+                                <li>
+                                    <a href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>
                                 </li>
                             @endforeach
                         </ul>

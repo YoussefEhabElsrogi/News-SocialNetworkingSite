@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SendOtpNotify extends Notification
+class SendOtpNotify extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -43,17 +43,5 @@ class SendOtpNotify extends Notification
             ->greeting('Otp Code')
             ->line('Verify Your Code.')
             ->line('Code: ' . $otp->token);
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(object $notifiable): array
-    {
-        return [
-            //
-        ];
     }
 }

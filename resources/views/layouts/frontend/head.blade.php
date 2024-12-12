@@ -45,6 +45,7 @@
         <script>
             userId = "{{ auth()->user()->id }}";
             role = 'user';
+            showPostRoute = "{{ route('front.post.show', ':slug') }}";
         </script>
     @endauth
 

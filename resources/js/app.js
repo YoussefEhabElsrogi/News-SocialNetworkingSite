@@ -17,13 +17,15 @@ if (role === "user") {
                     ? event.post_title.slice(0, 20) + "..."
                     : event.post_title;
 
-            let link = event.link ?? "#";
-
+            let link =
+                showPostRoute.replace(":slug", event.post_slug) +
+                "?notify=" +
+                event.id;
             // Append notification to the dropdown
             $("#push-notification").prepend(`
                 <div class="dropdown-item d-flex justify-content-between align-items-center">
                     <span>Post: ${postTitle}</span>
-                    <a href="${link}?notify=${event.id}">
+                    <a href="${link}">
                         <i class="fa fa-eye"></i>
                     </a>
                 </div>

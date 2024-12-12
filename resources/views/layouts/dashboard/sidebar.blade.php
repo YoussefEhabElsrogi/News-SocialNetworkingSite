@@ -123,7 +123,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">setting managment:</h6>
                         <a class="collapse-item" href="{{ route('dashboard.settings.index') }}">Setting</a>
-                        {{-- <a class="collapse-item" href="{{ route('dashboard.related-site.index') }}">Related Sites</a> --}}
+                        <a class="collapse-item" href="{{ route('dashboard.related-site.index') }}">Related Sites</a>
                     </div>
                 </div>
             </li>

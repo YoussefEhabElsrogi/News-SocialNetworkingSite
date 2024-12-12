@@ -120,7 +120,8 @@
                                     <div class="dropdown-item d-flex justify-content-between align-items-center">
                                         <span>Post:
                                             <span>{{ \Illuminate\Support\Str::limit($notification->data['post_title'], 20) }}</span>
-                                            <a href="{{ $notification->data['link'] }}?notify={{ $notification->id }}">
+                                            <a
+                                                href="{{ route('front.post.show', $notification->data['post_slug']) }}?notify={{ $notification->id }}">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                     </div>

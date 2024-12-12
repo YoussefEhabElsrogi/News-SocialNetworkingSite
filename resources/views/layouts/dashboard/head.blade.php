@@ -30,6 +30,9 @@
     {{-- Moment --}}
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
 
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
+
     {{-- Auth User --}}
     @auth('admin')
         <script>

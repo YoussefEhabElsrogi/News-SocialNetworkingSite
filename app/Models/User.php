@@ -27,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'country',
         'city',
         'street',
+        'email_verified_at',
         'phone',
         'password',
     ];
@@ -66,4 +67,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Comment::class);
     }
     ################################### END RELATIONS
+
+    ################################### START GENERAL FUNCTIONS
+    public function status()
+    {
+        return $this->status  == 1 ? 'Active' : 'Not Active';
+    }
+    ################################### END GENERAL FUNCTIONS
 }

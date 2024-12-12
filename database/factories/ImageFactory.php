@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Image>
- */
+*/
 class ImageFactory extends Factory
 {
     /**
@@ -17,8 +17,10 @@ class ImageFactory extends Factory
      */
     public function definition(): array
     {
+        $paths = ['test/news1.jpg', 'test/news2.jpeg', 'test/news3.jpg', 'test/news4.jpg', 'test/news5.jpeg', 'test/news6.jpeg', 'test/news7.jpeg'];
+
         return [
-            'path' => $this->faker->imageUrl(),
+            'path' => fake()->randomElement($paths),
             'created_at' => now(),
             'updated_at' => now()->addMonth(),
         ];

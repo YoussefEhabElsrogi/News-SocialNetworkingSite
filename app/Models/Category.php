@@ -51,4 +51,11 @@ class Category extends Model
         return $this->hasMany(Post::class);
     }
     ################################### END RELATIONS
+
+    ################################### START GENERAL FUNCTIONS
+    public function status()
+    {
+        return $this->status  == 1 ? 'Active' : 'Not Active';
+    }
+    ################################### END GENERAL FUNCTIONS
 }

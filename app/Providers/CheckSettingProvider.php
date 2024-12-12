@@ -17,9 +17,9 @@ class CheckSettingProvider extends ServiceProvider
         $settings = Setting::firstOr(function () {
             return Setting::create([
                 'site_name' => 'News Website',
-                'email' => 'youssefelsrogi@gmail.com',
+                'email' => 'youssefelsrogi1@gmail.com',
                 'favicon' => 'default_favicon.ico',
-                'logo' => 'logo.png',
+                'logo' => 'test/logo.png',
                 'facebook' => 'https://facebook.com/',
                 'twitter' => 'https://twitter.com/',
                 'instagram' => 'https://instagram.com/',

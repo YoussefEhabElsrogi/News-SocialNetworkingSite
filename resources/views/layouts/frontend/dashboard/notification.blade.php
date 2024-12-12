@@ -38,7 +38,8 @@
                 </div>
 
                 @forelse (auth()->user()->notifications as $notification)
-                    <a href="{{ $notification->data['link'] }}?notify={{ $notification->id }}" class="text-decoration-none">
+                    <a href="{{ route('front.post.show', $notification->data['post_slug']) }}?notify={{ $notification->id }}"
+                        class="text-decoration-none">
                         <div class="notification alert alert-info d-flex justify-content-between align-items-center">
                             <div>
                                 <strong>You have a notification from

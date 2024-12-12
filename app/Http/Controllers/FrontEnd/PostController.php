@@ -37,9 +37,9 @@ class PostController extends Controller
     {
         $post = Post::with('comments')->whereSlug($slug)->first();
 
-        // Check if the post was found
+
         if (!$post) {
-            // Set a flash message if the post is not found
+
             setFlashMessage('error', 'Post Not Found');
             return redirect()->back();
         }
@@ -63,8 +63,7 @@ class PostController extends Controller
 
             $userMakePost = $post->user;
 
-            // Send notification
-            if ($post->user->id !== auth()->user()->id) {
+            if ($post->user_id !== auth()->id() && $post->user_id !== null) {
                 Notification::send($userMakePost, new NewCommentNotify($comment, $post));
             }
 
@@ -72,7 +71,7 @@ class PostController extends Controller
 
             return response()->json([
                 'message' => 'Comment created successfully',
-                'comment' => $comment,
+                'comment' => $comment
             ], 201);
         } catch (\Exception $e) {
             return response()->json([

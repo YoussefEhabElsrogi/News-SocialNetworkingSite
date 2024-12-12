@@ -22,7 +22,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Share related sites
-        $related_sites = RelatedNewsSite::select(['name', 'url'])->get();
+        $related_sites = RelatedNewsSite::select(['name', 'url'])->latest()->take(5)->get();
 
         // Share categories
         $categories = Category::active()->select('id', 'name', 'slug')->get();

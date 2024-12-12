@@ -26,9 +26,9 @@ class StorePostRequest extends FormRequest
             'desc' => ['required', 'min:10'],
             'category_id' => ['exists:categories,id'],
             'comment_able' => ['in:on,off,1,0'],
-            'images' => ['nullable'],
+            'images' => ['required'],
             'images.*' => ['image', 'mimes:png,jpg'],
-            'small_desc'=>['required' , 'min:3' , 'max:170'],
+            'small_desc' => ['required', 'min:3', 'max:170'],
             'status' => ['nullable', 'in:1,0'],
         ];
     }

@@ -120,7 +120,7 @@
                                     <a href="{{ route('front.contact.create') }}"
                                         class="text-red-700 font-semibold hover:text-red-900 underline mt-2 block">
                                         Click here to contact support
-                                    </a> 
+                                    </a>
                                 </p>
                             </div>
 
@@ -134,8 +134,8 @@
                             @foreach ($postsRelated as $post)
                                 <div class="col-md-4">
                                     <div class="sn-img">
-                                        <img src="{{ asset(asset($post->images->first()->path)) }}" class="img-fluid"
-                                            alt="{{ $post->title }}" />
+                                        <img src="{{ asset($post->images->first()->path) }}" class="img-fluid"
+                                        style="width: 300px; height: 200px; object-fit: cover;" alt="No Image" />
                                         <div class="sn-title">
                                             <a
                                                 href="{{ route('front.post.show', $post->slug) }}">{{ $post->title }}</a>

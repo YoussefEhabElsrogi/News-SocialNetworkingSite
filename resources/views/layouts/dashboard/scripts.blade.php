@@ -24,6 +24,9 @@
     {{-- Summernote --}}
     <script src="{{ asset('assets/vendor/summernote/summernote-bs4.min.js') }}"></script>
 
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.min.js"></script>
+
     {{-- Livewire JS --}}
     @livewireScripts
 

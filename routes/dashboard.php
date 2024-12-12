@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\Notification\NotificationController;
 use App\Http\Controllers\Dashboard\Post\PostController;
 use App\Http\Controllers\Dashboard\Profile\ProfileController;
+use App\Http\Controllers\Dashboard\Setting\RelatedSiteController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use App\Http\Controllers\Dashboard\Setting\SettignController;
 use App\Http\Controllers\Dashborad\Admin\AdminController;
@@ -64,7 +65,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         // Post Routes
         Route::resource('posts', PostController::class);
         Route::get('posts/status/{id}', [PostController::class, 'changeStatus'])->name('posts.changeStatus');
-        Route::get('posts/comments/{id}',[PostController::class, 'getAllComments'])->name('posts.getAllComments');
+        Route::get('posts/comments/{id}', [PostController::class, 'getAllComments'])->name('posts.getAllComments');
         Route::delete('posts/comment/delete/{id}', [PostController::class, 'deleteComment'])->name('posts.deleteComment');
         Route::post('posts/image/delete/{id}', [PostController::class, 'deletePostImage'])->name('posts.image.delete');
 
@@ -97,6 +98,10 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
             Route::get('/delete-all', 'deleteAll')->name('deleteAll');
         });
+
+        // ******************** RelatedSite Routes **************************
+        Route::resource('related-site', RelatedSiteController::class);
+
 
         //******************** Generl Search Routes **************************
         Route::get('search', [GeneralSearchController::class, 'search'])->name('search');

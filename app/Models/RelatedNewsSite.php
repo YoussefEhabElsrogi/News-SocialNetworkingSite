@@ -13,4 +13,11 @@ class RelatedNewsSite extends Model
 
     protected $fillable = ['name', 'url'];
 
+    public static function filterRequest(): array
+    {
+        return [
+            'name' => 'required|string|max:40',
+            'url' => 'required|url',
+        ];
+    }
 }

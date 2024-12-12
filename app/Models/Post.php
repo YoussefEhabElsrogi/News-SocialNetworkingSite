@@ -72,5 +72,23 @@ class Post extends Model
     {
         $query->where('status', 1);
     }
+    public function scopeActiveUser(Builder $query)
+    {
+        $query->where(function ($subQuery) {
+            $subQuery->whereRelation('user', 'status', 1)
+                ->orWhere('user_id', null);
+        });
+    }
+    public function scopeActiveCategory(Builder $query)
+    {
+        $query->whereRelation('category', 'status', 1);
+    }
     ################################### END SCOPE
+
+    ################################### START GENERAL FUNCTIONS
+    public function status()
+    {
+        return $this->status  == 1 ? 'Active' : 'Not Active';
+    }
+    ################################### END GENERAL FUNCTIONS
 }
